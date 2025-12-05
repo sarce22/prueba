@@ -27,7 +27,8 @@
       <button class="cta">Reserva tu mesa</button>
     </header>
 
-    <main>
+    <main class="menu-layout">
+      <div class="menu-content">
       <section class="menu-section">
         <div class="section-header">
           <p class="eyebrow">Especial del día</p>
@@ -55,7 +56,13 @@
                   Qué trae: arroz con coco, patacones, ensalada de mango y limonada.
                   Marinada en hierbas del Caribe y frita al punto perfecto.
                 </p>
-                <button class="add-to-cart">Añadir al pedido</button>
+                <button
+                  class="add-to-cart"
+                  data-dish="Mojarra frita"
+                  data-price="40000"
+                >
+                  Añadir al pedido
+                </button>
               </div>
             </article>
           </li>
@@ -77,7 +84,13 @@
                   Qué trae: suero costeño, yuca salteada y arroz con coco. Salsa
                   criolla con vegetales de temporada.
                 </p>
-                <button class="add-to-cart">Añadir al pedido</button>
+                <button
+                  class="add-to-cart"
+                  data-dish="Bocachico"
+                  data-price="36000"
+                >
+                  Añadir al pedido
+                </button>
               </div>
             </article>
           </li>
@@ -99,7 +112,13 @@
                   Qué trae: papas criollas, vegetales al vapor y limoncito. A la
                   plancha con mantequilla de ajo y limón.
                 </p>
-                <button class="add-to-cart">Añadir al pedido</button>
+                <button
+                  class="add-to-cart"
+                  data-dish="Sierra"
+                  data-price="42000"
+                >
+                  Añadir al pedido
+                </button>
               </div>
             </article>
           </li>
@@ -121,7 +140,13 @@
                   Qué trae: hogao casero, arroz blanco y ensalada fresca. Suave y
                   jugosa, acompañada de hogao casero.
                 </p>
-                <button class="add-to-cart">Añadir al pedido</button>
+                <button
+                  class="add-to-cart"
+                  data-dish="Basa"
+                  data-price="35000"
+                >
+                  Añadir al pedido
+                </button>
               </div>
             </article>
           </li>
@@ -143,7 +168,13 @@
                   Qué trae: arroz con coco, patacones y ensalada encurtida. Crocante
                   y servida con ensalada fresca.
                 </p>
-                <button class="add-to-cart">Añadir al pedido</button>
+                <button
+                  class="add-to-cart"
+                  data-dish="Chuleta de pescado"
+                  data-price="37000"
+                >
+                  Añadir al pedido
+                </button>
               </div>
             </article>
           </li>
@@ -178,7 +209,13 @@
                   coco ahumada. Servida burbujeante con arroz con coco y plátano
                   maduro.
                 </p>
-                <button class="add-to-cart">Añadir al pedido</button>
+                <button
+                  class="add-to-cart"
+                  data-dish="Cazuela de mariscos"
+                  data-price="58000"
+                >
+                  Añadir al pedido
+                </button>
               </div>
             </article>
           </li>
@@ -200,7 +237,13 @@
                   Qué trae: camarones XL, pimentón asado, queso costeño y achiote.
                   Cremosa y aromatizada con cilantro recién picado.
                 </p>
-                <button class="add-to-cart">Añadir al pedido</button>
+                <button
+                  class="add-to-cart"
+                  data-dish="Cazuela de camarón"
+                  data-price="55000"
+                >
+                  Añadir al pedido
+                </button>
               </div>
             </article>
           </li>
@@ -234,7 +277,13 @@
                   Qué trae: camarones salteados, plátano maduro, aderezo de ajo y
                   ensalada fresca. Con toque de ajo confitado y hierbas aromáticas.
                 </p>
-                <button class="add-to-cart">Añadir al pedido</button>
+                <button
+                  class="add-to-cart"
+                  data-dish="Arroz con camarón"
+                  data-price="40000"
+                >
+                  Añadir al pedido
+                </button>
               </div>
             </article>
           </li>
@@ -256,17 +305,47 @@
                   Qué trae: mix de mariscos, sofrito casero, pimentón flameado y
                   aguacate. Combinación de mariscos con sofrito casero.
                 </p>
-                <button class="add-to-cart">Añadir al pedido</button>
+                <button
+                  class="add-to-cart"
+                  data-dish="Arroz marinera"
+                  data-price="43000"
+                >
+                  Añadir al pedido
+                </button>
               </div>
             </article>
           </li>
         </ul>
       </section>
+      </div>
+
+      <aside class="cart-panel" aria-labelledby="cart-title">
+        <div class="cart-header">
+          <div>
+            <p class="eyebrow">Tu pedido</p>
+            <h2 id="cart-title">Carrito</h2>
+          </div>
+          <span class="cart-count" id="cart-count">0 platos</span>
+        </div>
+        <ul class="cart-items" id="cart-items">
+          <li class="cart-empty">Aún no tienes platos agregados.</li>
+        </ul>
+        <div class="cart-footer">
+          <div class="cart-total">
+            <span>Total estimado</span>
+            <strong id="cart-total">$0</strong>
+          </div>
+          <button class="checkout-btn" type="button" id="checkout-btn" disabled>
+            Confirmar pedido
+          </button>
+        </div>
+      </aside>
     </main>
 
     <footer class="site-footer">
       <p>&copy; 2024 La Sabrosura del Mar. Todos los derechos reservados.</p>
       <p>Calle 12 #34-56, Cartagena &bull; Reserva al (300) 123-4567</p>
     </footer>
+    <script src="app.js"></script>
   </body>
 </html>
