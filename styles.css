@@ -1,0 +1,258 @@
+:root {
+  color-scheme: light;
+  font-family: 'Manrope', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background-color: #f0f6ff;
+  --primary: #0c6cd4;
+  --accent: #83d0ff;
+  --text: #112240;
+  --muted: #5a6a85;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: radial-gradient(circle at top, #e4f0ff, #f0f6ff 55%);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+main,
+header,
+footer {
+  width: min(1100px, 90vw);
+  margin: 0 auto;
+}
+
+.site-header {
+  padding: 2.5rem 0 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.brand {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.brand img {
+  max-width: 120px;
+}
+
+h1 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  color: var(--primary);
+}
+
+.tagline {
+  font-size: 1rem;
+  color: var(--muted);
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.cta {
+  border: none;
+  background: var(--primary);
+  color: #fff;
+  font-weight: 600;
+  padding: 0.85rem 1.5rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: transform 150ms ease, box-shadow 150ms ease;
+}
+
+.cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(12, 108, 212, 0.25);
+}
+
+main {
+  padding: 2rem 0 4rem;
+  display: grid;
+  gap: 3rem;
+}
+
+.menu-section {
+  padding: 0 0 2.5rem;
+}
+
+.section-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.section-header h2 {
+  font-size: 1.75rem;
+}
+
+.description {
+  color: var(--muted);
+}
+
+.dish-list {
+  list-style: none;
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.dish-card {
+  background: #fff;
+  border: 1px solid rgba(12, 108, 212, 0.08);
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 18px 40px rgba(13, 62, 112, 0.12);
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.dish-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.dish-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  padding: 1.25rem;
+  flex: 1;
+  min-height: 100%;
+}
+
+.dish-body h3 {
+  font-size: 1.25rem;
+  color: var(--text);
+}
+
+.dish-card p {
+  color: var(--muted);
+}
+
+.dish-description {
+  font-weight: 500;
+  color: #1d3254;
+  line-height: 1.5;
+}
+
+.dish-actions {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.add-to-cart {
+  margin-top: 0;
+  padding: 0.65rem 1.2rem;
+  border-radius: 999px;
+  border: none;
+  background: var(--primary);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: transform 150ms ease, box-shadow 150ms ease, background 150ms ease;
+  text-decoration: none;
+}
+
+.add-to-cart::before {
+  content: '+';
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.add-to-cart:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 20px rgba(12, 108, 212, 0.25);
+  background: #0959ad;
+}
+
+.price {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin: 0;
+}
+
+.site-footer {
+  padding: 2rem 0 3rem;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+@media (max-width: 900px) {
+  .site-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .brand {
+    flex-direction: column;
+  }
+
+  .cta {
+    width: 100%;
+    max-width: 360px;
+  }
+
+  .dish-list {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  main,
+  header,
+  footer {
+    width: min(100%, 92vw);
+  }
+
+  .menu-section {
+    padding: 0 0 2rem;
+  }
+
+  .dish-list {
+    grid-template-columns: 1fr;
+  }
+
+  .dish-image {
+    height: 220px;
+  }
+
+  .add-to-cart {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .price {
+    text-align: left;
+  }
+}
