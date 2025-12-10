@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>La Sabrosura del Mar</title>
+    <title>Pedidos Restaurantes</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -13,12 +13,22 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <div class="intro-overlay" id="intro-overlay" aria-hidden="false">
+      <div class="intro-card">
+        <img src="logo.png" alt="Logo de Pedidos Restaurantes" />
+        <p class="eyebrow">Bienvenidos</p>
+        <h2>Sabores del mar directo a tu mesa</h2>
+        <p>Explora nuestra carta y arma tu pedido con tus preferencias.</p>
+        <button class="cta intro-continue" type="button" id="intro-continue">Continuar</button>
+      </div>
+    </div>
+    <div class="toast-container" id="toast-container" aria-live="polite" aria-atomic="true"></div>
     <header class="site-header">
       <div class="brand">
-        <img src="logo.png" alt="Logo de La Sabrosura del Mar" />
+        <img src="logo.png" alt="Logo de Pedidos Restaurantes" />
         <div>
           <p class="eyebrow">Restaurante de cocina costeña</p>
-          <h1>La Sabrosura del Mar</h1>
+          <h1>Pedidos Restaurantes</h1>
           <p class="tagline">
             Pescados frescos, sazón casera y el sabor de la costa en cada plato.
           </p>
@@ -29,7 +39,13 @@
 
     <main class="menu-layout">
       <div class="menu-content">
-      <section class="menu-section">
+      <div class="menu-filters" role="group" aria-label="Filtrar categorías de menú">
+        <button class="filter-btn active" data-filter="all" type="button">Todo</button>
+        <button class="filter-btn" data-filter="ejecutivos" type="button">Ejecutivos</button>
+        <button class="filter-btn" data-filter="cazuelas" type="button">Cazuelas</button>
+        <button class="filter-btn" data-filter="arroces" type="button">Arroces</button>
+      </div>
+      <section class="menu-section" data-category="ejecutivos">
         <div class="section-header">
           <p class="eyebrow">Especial del día</p>
           <h2>Menú Ejecutivo</h2>
@@ -49,17 +65,18 @@
               </div>
               <div class="dish-content">
                 <div class="dish-header">
-                  <h3>Mojarra frita</h3>
-                  <span class="price-tag">$40.000</span>
+                  <h3>Mojarra</h3>
+                  <span class="price-tag">$25.000</span>
                 </div>
                 <p class="dish-description">
-                  Qué trae: arroz con coco, patacones, ensalada de mango y limonada.
+                  Qué trae: caldo de pescado, arroz blanco, ensalada, patacones y limonada.
                   Marinada en hierbas del Caribe y frita al punto perfecto.
                 </p>
                 <button
                   class="add-to-cart"
-                  data-dish="Mojarra frita"
-                  data-price="40000"
+                  data-dish="Mojarra"
+                  data-price="25000"
+                  data-coco-extra="2000"
                 >
                   Añadir al pedido
                 </button>
@@ -78,16 +95,17 @@
               <div class="dish-content">
                 <div class="dish-header">
                   <h3>Bocachico</h3>
-                  <span class="price-tag">$36.000</span>
+                  <span class="price-tag">$25.000</span>
                 </div>
                 <p class="dish-description">
-                  Qué trae: suero costeño, yuca salteada y arroz con coco. Salsa
-                  criolla con vegetales de temporada.
+                  Qué trae: caldo de pescado, arroz blanco, ensalada, patacones y limonada.
+                  Salsa criolla con vegetales de temporada.
                 </p>
                 <button
                   class="add-to-cart"
                   data-dish="Bocachico"
-                  data-price="36000"
+                  data-price="25000"
+                  data-coco-extra="2000"
                 >
                   Añadir al pedido
                 </button>
@@ -106,16 +124,17 @@
               <div class="dish-content">
                 <div class="dish-header">
                   <h3>Sierra</h3>
-                  <span class="price-tag">$42.000</span>
+                  <span class="price-tag">$25.000</span>
                 </div>
                 <p class="dish-description">
-                  Qué trae: papas criollas, vegetales al vapor y limoncito. A la
-                  plancha con mantequilla de ajo y limón.
+                  Qué trae: caldo de pescado, arroz blanco, ensalada, patacones y limonada.
+                  A la plancha con mantequilla de ajo y limón.
                 </p>
                 <button
                   class="add-to-cart"
                   data-dish="Sierra"
-                  data-price="42000"
+                  data-price="25000"
+                  data-coco-extra="2000"
                 >
                   Añadir al pedido
                 </button>
@@ -134,16 +153,17 @@
               <div class="dish-content">
                 <div class="dish-header">
                   <h3>Basa</h3>
-                  <span class="price-tag">$35.000</span>
+                  <span class="price-tag">$25.000</span>
                 </div>
                 <p class="dish-description">
-                  Qué trae: hogao casero, arroz blanco y ensalada fresca. Suave y
-                  jugosa, acompañada de hogao casero.
+                  Qué trae: caldo de pescado, arroz blanco, ensalada, patacones y limonada.
+                  Suave y jugosa, acompañada de hogao casero.
                 </p>
                 <button
                   class="add-to-cart"
                   data-dish="Basa"
-                  data-price="35000"
+                  data-price="25000"
+                  data-coco-extra="2000"
                 >
                   Añadir al pedido
                 </button>
@@ -162,16 +182,46 @@
               <div class="dish-content">
                 <div class="dish-header">
                   <h3>Chuleta de pescado</h3>
-                  <span class="price-tag">$37.000</span>
+                  <span class="price-tag">$23.000</span>
                 </div>
                 <p class="dish-description">
-                  Qué trae: arroz con coco, patacones y ensalada encurtida. Crocante
-                  y servida con ensalada fresca.
+                  Qué trae: caldo de pescado, arroz blanco, ensalada, patacones y limonada.
+                  Crocante y servida con ensalada fresca.
                 </p>
                 <button
                   class="add-to-cart"
                   data-dish="Chuleta de pescado"
-                  data-price="37000"
+                  data-price="23000"
+                  data-coco-extra="2000"
+                >
+                  Añadir al pedido
+                </button>
+              </div>
+            </article>
+          </li>
+          <li class="dish-card">
+            <article class="dish-card-inner">
+              <div class="dish-media">
+                <img
+                  src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80"
+                  alt="Trucha dorada con hierbas frescas"
+                  class="dish-image"
+                />
+              </div>
+              <div class="dish-content">
+                <div class="dish-header">
+                  <h3>Trucha</h3>
+                  <span class="price-tag">$25.000</span>
+                </div>
+                <p class="dish-description">
+                  Qué trae: caldo de pescado, arroz blanco, ensalada, patacones y limonada.
+                  Dorada en plancha con mantequilla de alcaparras y limón.
+                </p>
+                <button
+                  class="add-to-cart"
+                  data-dish="Trucha"
+                  data-price="25000"
+                  data-coco-extra="2000"
                 >
                   Añadir al pedido
                 </button>
@@ -181,7 +231,7 @@
         </ul>
       </section>
 
-      <section class="menu-section">
+      <section class="menu-section" data-category="cazuelas">
         <div class="section-header">
           <p class="eyebrow">Para compartir</p>
           <h2>Cazuelas</h2>
@@ -202,17 +252,17 @@
               <div class="dish-content">
                 <div class="dish-header">
                   <h3>Cazuela de mariscos</h3>
-                  <span class="price-tag">$58.000</span>
+                  <span class="price-tag">$42.000</span>
                 </div>
                 <p class="dish-description">
                   Qué trae: langostinos, calamar, mejillones, pescado y leche de
-                  coco ahumada. Servida burbujeante con arroz con coco y plátano
-                  maduro.
+                  coco ahumada. Se acompaña con arroz blanco y patacones, sin caldo.
                 </p>
                 <button
                   class="add-to-cart"
                   data-dish="Cazuela de mariscos"
-                  data-price="58000"
+                  data-price="42000"
+                  data-no-style="true"
                 >
                   Añadir al pedido
                 </button>
@@ -231,16 +281,77 @@
               <div class="dish-content">
                 <div class="dish-header">
                   <h3>Cazuela de camarón</h3>
-                  <span class="price-tag">$55.000</span>
+                  <span class="price-tag">$42.000</span>
                 </div>
                 <p class="dish-description">
                   Qué trae: camarones XL, pimentón asado, queso costeño y achiote.
-                  Cremosa y aromatizada con cilantro recién picado.
+                  Se sirve con arroz blanco y patacones, sin incluir caldo.
                 </p>
                 <button
                   class="add-to-cart"
                   data-dish="Cazuela de camarón"
-                  data-price="55000"
+                  data-price="42000"
+                  data-no-style="true"
+                >
+                  Añadir al pedido
+                </button>
+              </div>
+            </article>
+          </li>
+          <li class="dish-card">
+            <article class="dish-card-inner">
+              <div class="dish-media">
+                <img
+                  src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80"
+                  alt="Media cazuela de mariscos"
+                  class="dish-image"
+                />
+              </div>
+              <div class="dish-content">
+                <div class="dish-header">
+                  <h3>1/2 cazuela de mariscos</h3>
+                  <span class="price-tag">$28.000</span>
+                </div>
+                <p class="dish-description">
+                  Porción ideal para uno: langostinos, calamar, mejillones y coco ahumado.
+                  Incluye arroz blanco y patacones, no lleva caldo.
+                </p>
+                <button
+                  class="add-to-cart"
+                  data-dish="1/2 cazuela de mariscos"
+                  data-price="28000"
+                  data-coco-extra="2000"
+                  data-no-style="true"
+                >
+                  Añadir al pedido
+                </button>
+              </div>
+            </article>
+          </li>
+          <li class="dish-card">
+            <article class="dish-card-inner">
+              <div class="dish-media">
+                <img
+                  src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80"
+                  alt="Media cazuela de camarón cremosa"
+                  class="dish-image"
+                />
+              </div>
+              <div class="dish-content">
+                <div class="dish-header">
+                  <h3>1/2 cazuela de camarón</h3>
+                  <span class="price-tag">$28.000</span>
+                </div>
+                <p class="dish-description">
+                  Camarones XL en salsa cremosa con pimentón asado y queso costeño.
+                  Incluye arroz blanco y patacones, sin caldo.
+                </p>
+                <button
+                  class="add-to-cart"
+                  data-dish="1/2 cazuela de camarón"
+                  data-price="28000"
+                  data-coco-extra="2000"
+                  data-no-style="true"
                 >
                   Añadir al pedido
                 </button>
@@ -250,7 +361,7 @@
         </ul>
       </section>
 
-      <section class="menu-section">
+      <section class="menu-section" data-category="arroces">
         <div class="section-header">
           <p class="eyebrow">Arroces con mar</p>
           <h2>Arroces</h2>
@@ -271,16 +382,18 @@
               <div class="dish-content">
                 <div class="dish-header">
                   <h3>Arroz con camarón</h3>
-                  <span class="price-tag">$40.000</span>
+                  <span class="price-tag">$38.000</span>
                 </div>
                 <p class="dish-description">
-                  Qué trae: camarones salteados, plátano maduro, aderezo de ajo y
-                  ensalada fresca. Con toque de ajo confitado y hierbas aromáticas.
+                  Qué trae: caldo de pescado, ensalada, patacones y limonada, además de camarones salteados,
+                  plátano maduro y aderezo de ajo. Con toque de ajo confitado y hierbas aromáticas.
                 </p>
                 <button
                   class="add-to-cart"
                   data-dish="Arroz con camarón"
-                  data-price="40000"
+                  data-price="38000"
+                  data-no-rice="true"
+                  data-no-style="true"
                 >
                   Añadir al pedido
                 </button>
@@ -299,16 +412,77 @@
               <div class="dish-content">
                 <div class="dish-header">
                   <h3>Arroz marinera</h3>
-                  <span class="price-tag">$43.000</span>
+                  <span class="price-tag">$38.000</span>
                 </div>
                 <p class="dish-description">
-                  Qué trae: mix de mariscos, sofrito casero, pimentón flameado y
-                  aguacate. Combinación de mariscos con sofrito casero.
+                  Qué trae: caldo de pescado, ensalada, patacones y limonada, además del mix de mariscos,
+                  sofrito casero, pimentón flameado y aguacate.
                 </p>
                 <button
                   class="add-to-cart"
                   data-dish="Arroz marinera"
-                  data-price="43000"
+                  data-price="38000"
+                  data-no-rice="true"
+                  data-no-style="true"
+                >
+                  Añadir al pedido
+                </button>
+              </div>
+            </article>
+          </li>
+          <li class="dish-card">
+            <article class="dish-card-inner">
+              <div class="dish-media">
+                <img
+                  src="https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80"
+                  alt="Media porción de arroz con camarón"
+                  class="dish-image"
+                />
+              </div>
+              <div class="dish-content">
+                <div class="dish-header">
+                  <h3>1/2 arroz con camarón</h3>
+                  <span class="price-tag">$26.000</span>
+                </div>
+                <p class="dish-description">
+                  Media porción que incluye caldo de pescado, ensalada, patacones y limonada, junto a camarones
+                  salteados y aderezo de ajo.
+                </p>
+                <button
+                  class="add-to-cart"
+                  data-dish="1/2 arroz con camarón"
+                  data-price="26000"
+                  data-no-rice="true"
+                  data-no-style="true"
+                >
+                  Añadir al pedido
+                </button>
+              </div>
+            </article>
+          </li>
+          <li class="dish-card">
+            <article class="dish-card-inner">
+              <div class="dish-media">
+                <img
+                  src="https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80"
+                  alt="Media porción de arroz marinera"
+                  class="dish-image"
+                />
+              </div>
+              <div class="dish-content">
+                <div class="dish-header">
+                  <h3>1/2 arroz marinera</h3>
+                  <span class="price-tag">$26.000</span>
+                </div>
+                <p class="dish-description">
+                  Sofrito casero y mix de mariscos en ración ligera con caldo de pescado, ensalada, patacones y limonada.
+                </p>
+                <button
+                  class="add-to-cart"
+                  data-dish="1/2 arroz marinera"
+                  data-price="26000"
+                  data-no-rice="true"
+                  data-no-style="true"
                 >
                   Añadir al pedido
                 </button>
@@ -342,8 +516,107 @@
       </aside>
     </main>
 
+    <div class="invoice-modal" id="invoice-modal" aria-hidden="true">
+      <div class="invoice-dialog" role="dialog" aria-modal="true" aria-labelledby="invoice-title">
+        <div class="invoice-header">
+          <div>
+            <p class="eyebrow">Resumen del pedido</p>
+            <h2 id="invoice-title">Factura preliminar</h2>
+          </div>
+          <button class="close-invoice" type="button" id="invoice-close" aria-label="Cerrar factura">&times;</button>
+        </div>
+        <ul class="invoice-items" id="invoice-list">
+        </ul>
+        <div class="invoice-total">
+          <span>Total</span>
+          <strong id="invoice-total">$0</strong>
+        </div>
+        <button class="checkout-btn" type="button" id="invoice-confirm">Confirmar pedido</button>
+      </div>
+    </div>
+
+    <div class="custom-modal" id="custom-modal" aria-hidden="true">
+      <div class="custom-dialog" role="dialog" aria-modal="true" aria-labelledby="custom-title">
+        <form id="custom-form" class="custom-form">
+          <div class="invoice-header">
+            <div>
+              <p class="eyebrow">Personaliza tu pedido</p>
+              <h2 id="custom-title">Opciones para <span id="custom-dish-name"></span></h2>
+            </div>
+            <button class="close-invoice" type="button" id="custom-close" aria-label="Cerrar personalización">&times;</button>
+          </div>
+
+          <fieldset class="custom-group" id="custom-style-group">
+            <legend>Tipo de preparación</legend>
+            <label>
+              <input type="radio" name="custom-style" value="frito" checked />
+              Frito
+            </label>
+            <label>
+              <input type="radio" name="custom-style" value="sudado" />
+              Sudado
+            </label>
+          </fieldset>
+
+          <fieldset class="custom-group is-hidden" id="custom-cut-group">
+            <legend>¿Qué parte prefieres?</legend>
+            <label>
+              <input type="radio" name="custom-cut" value="cabeza" />
+              Cabeza
+            </label>
+            <label>
+              <input type="radio" name="custom-cut" value="centro" checked />
+              Centro
+            </label>
+            <label>
+              <input type="radio" name="custom-cut" value="cola" />
+              Cola
+            </label>
+          </fieldset>
+
+          <fieldset class="custom-group" id="custom-rice-group">
+            <legend>Tipo de arroz</legend>
+            <label>
+              <input type="radio" name="custom-rice" value="blanco" checked />
+              Arroz blanco
+            </label>
+            <label>
+              <input type="radio" name="custom-rice" value="coco" />
+              Arroz con coco <span class="option-extra" id="coco-extra-note">(+ $2.000)</span>
+            </label>
+          </fieldset>
+
+          <fieldset class="custom-group">
+            <legend>Ajustes rápidos</legend>
+            <label>
+              <input type="checkbox" name="custom-no-salad" />
+              Sin ensalada
+            </label>
+            <label>
+              <input type="checkbox" name="custom-no-patacones" />
+              Sin patacones
+            </label>
+            <label>
+              <input type="checkbox" name="custom-extra-limon" />
+              Extra limón
+            </label>
+          </fieldset>
+
+          <label class="custom-group">
+            Notas adicionales
+            <textarea name="custom-notes" rows="3" placeholder="Ej: Sin sal, entregar separado."></textarea>
+          </label>
+
+          <div class="custom-actions">
+            <button type="button" class="secondary-btn" id="custom-cancel">Cancelar</button>
+            <button type="submit" class="checkout-btn">Agregar al carrito</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
     <footer class="site-footer">
-      <p>&copy; 2024 La Sabrosura del Mar. Todos los derechos reservados.</p>
+      <p>&copy; 2024 Pedidos Restaurantes. Todos los derechos reservados.</p>
       <p>Calle 12 #34-56, Cartagena &bull; Reserva al (300) 123-4567</p>
     </footer>
     <script src="app.js"></script>

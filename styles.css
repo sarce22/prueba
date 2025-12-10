@@ -4,8 +4,10 @@
   background-color: #f0f6ff;
   --primary: #0c6cd4;
   --accent: #83d0ff;
+  --accent-strong: #3ee0c2;
   --text: #112240;
   --muted: #5a6a85;
+  --card-glow: rgba(12, 108, 212, 0.35);
 }
 
 * {
@@ -18,6 +20,18 @@ body {
   background: radial-gradient(circle at top, #e4f0ff, #f0f6ff 55%);
   color: var(--text);
   min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at 10% 20%, rgba(62, 224, 194, 0.18), transparent 45%),
+    radial-gradient(circle at 80% 0%, rgba(12, 108, 212, 0.2), transparent 55%);
+  pointer-events: none;
+  animation: glowPulse 12s ease-in-out infinite alternate;
 }
 
 img {
@@ -70,18 +84,20 @@ h1 {
 
 .cta {
   border: none;
-  background: var(--primary);
+  background: linear-gradient(120deg, var(--primary), var(--accent));
+  background-size: 200% 200%;
   color: #fff;
   font-weight: 600;
   padding: 0.85rem 1.5rem;
   border-radius: 999px;
   cursor: pointer;
-  transition: transform 150ms ease, box-shadow 150ms ease;
+  transition: transform 200ms ease, box-shadow 200ms ease, background-position 400ms ease;
 }
 
 .cta:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(12, 108, 212, 0.25);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 10px 25px rgba(12, 108, 212, 0.35);
+  background-position: 100% 0;
 }
 
 main {
@@ -99,6 +115,301 @@ main {
   display: flex;
   flex-direction: column;
   gap: 3rem;
+  animation: fadeSlide 600ms ease;
+}
+
+.menu-filters {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.filter-btn {
+  border: 1px solid rgba(12, 108, 212, 0.4);
+  background: #fff;
+  color: var(--text);
+  padding: 0.35rem 1rem;
+  border-radius: 999px;
+  font-weight: 600;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: background 200ms ease, color 200ms ease, box-shadow 200ms ease, transform 200ms ease;
+}
+
+.filter-btn:hover {
+  box-shadow: 0 10px 20px rgba(12, 108, 212, 0.15);
+  transform: translateY(-2px);
+}
+
+.filter-btn.active {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+  box-shadow: 0 12px 25px rgba(12, 108, 212, 0.25);
+}
+
+.menu-section.is-hidden {
+  display: none;
+}
+
+.invoice-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(17, 34, 64, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 200ms ease;
+  z-index: 20;
+}
+
+.invoice-modal.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.invoice-dialog {
+  background: #fff;
+  border-radius: 32px;
+  padding: 2rem;
+  width: min(480px, 90vw);
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 30px 60px rgba(17, 34, 64, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  animation: modalRise 320ms ease;
+}
+
+.invoice-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.close-invoice {
+  border: none;
+  background: transparent;
+  font-size: 2rem;
+  line-height: 1;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.invoice-items {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 0;
+  margin: 0;
+}
+
+.invoice-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.invoice-item-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.invoice-item-options {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.invoice-item strong {
+  color: var(--text);
+}
+
+.invoice-total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.2rem;
+}
+
+.invoice-total strong {
+  font-size: 1.75rem;
+  color: var(--primary);
+}
+
+.custom-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(17, 34, 64, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 200ms ease;
+  z-index: 25;
+}
+
+.custom-modal.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.custom-dialog {
+  background: #fff;
+  border-radius: 32px;
+  padding: 2rem;
+  width: min(540px, 95vw);
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 30px 60px rgba(17, 34, 64, 0.3);
+  animation: modalRise 320ms ease;
+}
+
+.intro-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(17, 34, 64, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 30;
+  animation: fadeSlide 400ms ease;
+}
+
+.intro-overlay.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 250ms ease;
+}
+
+.intro-card {
+  background: #fff;
+  border-radius: 32px;
+  padding: 2.5rem;
+  width: min(420px, 90vw);
+  text-align: center;
+  box-shadow: 0 30px 60px rgba(17, 34, 64, 0.35);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  animation: modalRise 320ms ease;
+}
+
+.intro-card img {
+  max-width: 160px;
+  margin: 0 auto;
+}
+
+.intro-card h2 {
+  color: var(--text);
+}
+
+.intro-continue {
+  width: 100%;
+}
+
+.toast-container {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  z-index: 40;
+}
+
+.toast {
+  background: #112240;
+  color: #fff;
+  padding: 0.8rem 1.2rem;
+  border-radius: 16px;
+  box-shadow: 0 15px 30px rgba(17, 34, 64, 0.4);
+  animation: toastSlide 400ms ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+}
+
+.toast::before {
+  content: '✓';
+  color: var(--accent-strong);
+}
+
+.toast.hide {
+  animation: toastHide 300ms ease forwards;
+}
+
+.custom-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.custom-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border: 1px solid rgba(17, 34, 64, 0.1);
+  border-radius: 16px;
+  padding: 1rem;
+  font-size: 0.95rem;
+}
+
+.custom-group.is-hidden {
+  display: none;
+}
+
+.custom-group legend {
+  font-weight: 700;
+  color: var(--text);
+}
+
+.custom-group label {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  color: var(--muted);
+}
+
+.option-extra {
+  color: #1b873f;
+  font-weight: 600;
+}
+
+.custom-group textarea {
+  border: 1px solid rgba(17, 34, 64, 0.2);
+  border-radius: 12px;
+  padding: 0.75rem;
+  font-family: inherit;
+  resize: vertical;
+}
+
+.custom-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.secondary-btn {
+  border: 1px solid rgba(17, 34, 64, 0.2);
+  background: transparent;
+  color: var(--text);
+  padding: 0.75rem 1.5rem;
+  border-radius: 16px;
+  font-weight: 600;
+  cursor: pointer;
 }
 
 .menu-section {
@@ -142,6 +453,7 @@ main {
   min-height: 100%;
   transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
   position: relative;
+  animation: cardPop 400ms ease both;
 }
 
 .dish-card-inner::before {
@@ -175,7 +487,7 @@ main {
 .dish-card-inner:hover {
   transform: translateY(-10px);
   border-color: rgba(12, 108, 212, 0.3);
-  box-shadow: 0 30px 60px rgba(17, 34, 64, 0.2);
+  box-shadow: 0 30px 60px rgba(17, 34, 64, 0.25), 0 0 25px var(--card-glow);
 }
 
 .dish-card-inner:hover::before {
@@ -230,14 +542,15 @@ main {
   padding: 0.65rem 1.2rem;
   border-radius: 999px;
   border: none;
-  background: var(--primary);
+  background: linear-gradient(120deg, #112240, var(--primary));
+  background-size: 200% 200%;
   color: #fff;
   font-weight: 600;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  transition: transform 150ms ease, box-shadow 150ms ease, background 150ms ease;
+  transition: transform 200ms ease, box-shadow 200ms ease, background-position 300ms ease;
   text-decoration: none;
 }
 
@@ -248,9 +561,9 @@ main {
 }
 
 .add-to-cart:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 10px 20px rgba(12, 108, 212, 0.25);
-  background: #0959ad;
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 12px 24px rgba(12, 108, 212, 0.25);
+  background-position: 100% 0;
 }
 
 .dish-card-inner:hover .add-to-cart {
@@ -258,19 +571,8 @@ main {
 }
 
 .add-to-cart.added {
-  animation: cartPulse 400ms ease;
-}
-
-@keyframes cartPulse {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.08);
-  }
-  100% {
-    transform: scale(1);
-  }
+  animation: pulseGlow 500ms ease;
+  background: linear-gradient(120deg, var(--primary), var(--accent-strong));
 }
 
 .cart-panel {
@@ -285,6 +587,7 @@ main {
   position: sticky;
   top: 2rem;
   align-self: flex-start;
+  animation: fadeSlide 600ms ease 100ms both;
 }
 
 .cart-header {
@@ -336,6 +639,12 @@ main {
 .cart-item-price strong {
   color: var(--primary);
   font-weight: 700;
+}
+
+.cart-item-options {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-top: 0.25rem;
 }
 
 .cart-item-actions {
@@ -413,6 +722,7 @@ main {
 .checkout-btn:hover:not(:disabled) {
   transform: translateY(-1px);
   box-shadow: 0 16px 30px rgba(12, 108, 212, 0.25);
+  background: linear-gradient(120deg, var(--primary), var(--accent));
 }
 
 .checkout-btn:disabled {
@@ -481,4 +791,76 @@ main {
     justify-content: center;
   }
 
+}
+
+@keyframes fadeSlide {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cardPop {
+  from {
+    opacity: 0;
+    transform: translateY(15px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes pulseGlow {
+  0% {
+    box-shadow: 0 0 0 rgba(62, 224, 194, 0.4);
+  }
+  60% {
+    box-shadow: 0 0 18px rgba(62, 224, 194, 0.4);
+  }
+  100% {
+    box-shadow: 0 0 0 rgba(62, 224, 194, 0);
+  }
+}
+
+@keyframes modalRise {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes glowPulse {
+  from {
+    opacity: 0.4;
+  }
+  to {
+    opacity: 0.9;
+  }
+}
+
+@keyframes toastSlide {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes toastHide {
+  to {
+    opacity: 0;
+    transform: translateY(10px);
+  }
 }
