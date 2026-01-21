@@ -842,6 +842,10 @@ main {
     display: inline-flex;
   }
 
+  .scroll-top {
+    bottom: 4.2rem;
+  }
+
 }
 
 @keyframes fadeSlide {
