@@ -1,0 +1,728 @@
+{
+  "categories": [
+    {
+      "id": "ejecutivos",
+      "label": "Ejecutivos",
+      "eyebrow": "Especial del día",
+      "title": "Menú Ejecutivo",
+      "description": "Acompañado con caldo, arroz, ensalada, patacones y limonada.",
+      "items": [
+        {
+          "name": "Mojarra",
+          "price": 28000,
+          "image": "https://images.unsplash.com/photo-1505576399279-565b52d4ac71?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Mojarra frita dorada con limón",
+          "description": "Acompañado con caldo, arroz, ensalada, patacones y limonada.",
+          "cocoExtra": 2000
+        },
+        {
+          "name": "Bocachico",
+          "price": 28000,
+          "image": "https://images.unsplash.com/photo-1525755662778-989d0524087e?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Filete de bocachico con salsas",
+          "description": "Acompañado con caldo, arroz, ensalada, patacones y limonada.",
+          "cocoExtra": 2000
+        },
+        {
+          "name": "Sierra",
+          "price": 28000,
+          "image": "https://images.unsplash.com/photo-1471189641895-16c58a695bcb?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Filete de sierra a la plancha",
+          "description": "Acompañado con caldo, arroz, ensalada, patacones y limonada.",
+          "cocoExtra": 2000
+        },
+        {
+          "name": "Basa",
+          "price": 26000,
+          "image": "https://images.unsplash.com/photo-1482049016688-2d3e1b311543?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Filete de basa con hogao",
+          "description": "Acompañado con caldo, arroz, ensalada, patacones y limonada.",
+          "cocoExtra": 2000
+        },
+        {
+          "name": "Chuleta de pescado",
+          "price": 26000,
+          "image": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Chuleta de pescado empanizada",
+          "description": "Acompañado con caldo, arroz, ensalada, patacones y limonada.",
+          "noStyle": true,
+          "cocoExtra": 2000
+        },
+        {
+          "name": "Trucha",
+          "price": 28000,
+          "image": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Trucha dorada con hierbas frescas",
+          "description": "Acompañado con caldo, arroz, ensalada, patacones y limonada.",
+          "cocoExtra": 2000
+        }
+      ]
+    },
+    {
+      "id": "cazuelas",
+      "label": "Cazuelas",
+      "eyebrow": "Para compartir",
+      "title": "Cazuelas",
+      "description": "Recetas tradicionales cargadas de mariscos, servidas burbujeantes.",
+      "items": [
+        {
+          "name": "Cazuela de Camarones",
+          "price": 46000,
+          "image": "https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Cazuela de camarones",
+          "description": "Contiene camarones. Acompañada con arroz y patacón.",
+          "noStyle": true
+        },
+        {
+          "name": "1/2 Cazuela de Camarones",
+          "price": 32000,
+          "image": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Media cazuela de camarones",
+          "description": "Media porción. Acompañada con arroz y patacón.",
+          "noStyle": true
+        },
+        {
+          "name": "Cazuela de Mariscos",
+          "price": 46000,
+          "image": "https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Cazuela de mariscos",
+          "description": "Contiene mariscos. Acompañada con arroz y patacón.",
+          "noStyle": true
+        },
+        {
+          "name": "1/2 Cazuela de Mariscos",
+          "price": 32000,
+          "image": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Media cazuela de mariscos",
+          "description": "Media porción. Acompañada con arroz y patacón.",
+          "noStyle": true
+        },
+        {
+          "name": "Cazuela de Langostinos",
+          "price": 55000,
+          "image": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Cazuela de langostinos",
+          "description": "Contiene 7 langostinos. Acompañada con arroz y patacón.",
+          "noStyle": true
+        },
+        {
+          "name": "Cazuela de Bagre",
+          "price": 38000,
+          "image": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Cazuela de bagre",
+          "description": "Contiene trozos de bagre. Acompañada con arroz y patacón.",
+          "noStyle": true
+        }
+      ]
+    },
+    {
+      "id": "arroces",
+      "label": "Arroces",
+      "eyebrow": "Arroces con mar",
+      "title": "Arroces",
+      "description": "Granitos sueltos, cargados de mariscos frescos y verduras.",
+      "items": [
+        
+        {
+          "name": "Arroz a la Marinera",
+          "price": 41000,
+          "image": "https://images.unsplash.com/photo-1506354666786-959d6d497f1a?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Arroz a la marinera",
+          "description": "Contiene camarón, calamar, pulpo y caracol. Acompañado con caldo, patacón y ensalada.",
+          "noRice": true,
+          "noStyle": true
+        },
+        {
+          "name": "1/2 Arroz a la Marinera",
+          "price": 29000,
+          "image": "https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Media porción de arroz a la marinera",
+          "description": "Media porción. Acompañado con caldo, patacón y ensalada.",
+          "noRice": true,
+          "noStyle": true
+        },
+        {
+          "name": "Arroz a la Marinera con Langostinos",
+          "price": 50000,
+          "image": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Arroz a la marinera con langostinos",
+          "description": "Contiene camarón, calamar, pulpo, caracol y 2 langostinos. Acompañado con caldo, patacón y ensalada.",
+          "noRice": true,
+          "noStyle": true
+        },
+        {
+          "name": "Arroz a la Marinera con Coco",
+          "price": 44000,
+          "image": "https://images.unsplash.com/photo-1506354666786-959d6d497f1a?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Arroz a la marinera con coco",
+          "description": "Arroz con coco, camarón, pulpo y caracol. Acompañado con caldo, patacón y ensalada.",
+          "noRice": true,
+          "noStyle": true
+        },
+        {
+          "name": "1/2 Arroz a la Marinera con Coco",
+          "price": 32000,
+          "image": "https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Media porción de arroz a la marinera con coco",
+          "description": "Media porción. Acompañado con caldo, patacón y ensalada.",
+          "noRice": true,
+          "noStyle": true
+        },
+        {
+          "name": "1/2 Arroz con Camarón con Coco",
+          "price": 32000,
+          "image": "https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Media porción de arroz con camarón con coco",
+          "description": "Media porción. Acompañado con caldo, patacón y ensalada.",
+          "noRice": true,
+          "noStyle": true
+        },
+        {
+          "name": "Arroz con Camarones",
+          "price": 41000,
+          "image": "https://images.unsplash.com/photo-1506354666786-959d6d497f1a?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Arroz con camarones",
+          "description": "Contiene camarón. Acompañado con caldo, patacón y ensalada.",
+          "noRice": true,
+          "noStyle": true
+        },
+        {
+          "name": "1/2 Arroz con Camarones",
+          "price": 29000,
+          "image": "https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Media porción de arroz con camarones",
+          "description": "Media porción. Acompañado con caldo, patacón y ensalada.",
+          "noRice": true,
+          "noStyle": true
+        },
+        {
+          "name": "Arroz con Langostinos",
+          "price": 58000,
+          "image": "https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Arroz con langostinos",
+          "description": "Contiene 8 langostinos. Acompañado con caldo, patacón y ensalada.",
+          "noRice": true,
+          "noStyle": true
+        }
+      ]
+    },
+    {
+      "id": "bebidas",
+      "label": "Bebidas",
+      "eyebrow": "Para refrescar",
+      "title": "Bebidas",
+      "description": "Acompaña tu pedido con bebidas frías y naturales.",
+      "items": [
+        {
+          "name": "Gaseosa 350 ml",
+          "price": 5000,
+          "image": "https://images.unsplash.com/photo-1533007716222-4b465613a984?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Gaseosa en botella",
+          "description": "Gaseosas y bebidas frías.",
+          "directAdd": true
+        },
+        {
+          "name": "Tamarindo Michelada",
+          "price": 6000,
+          "image": "https://images.unsplash.com/photo-1510626176961-4b57d4fbad03?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Tamarindo michelada",
+          "description": "Bebida fría de tamarindo estilo michelada.",
+          "directAdd": true
+        },
+        {
+          "name": "Agua en Botella",
+          "price": 4500,
+          "image": "https://images.unsplash.com/photo-1523362628745-0c100150b504?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Agua en botella",
+          "description": "Agua embotellada.",
+          "directAdd": true
+        },
+        {
+          "name": "Soda Italiana",
+          "price": 13000,
+          "image": "https://images.unsplash.com/photo-1468465236047-6aac20937e26?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Soda italiana",
+          "description": "Refresco burbujeante con jarabes naturales.",
+          "directAdd": true
+        },
+        {
+          "name": "Cerveza Poker",
+          "price": 6000,
+          "image": "https://images.unsplash.com/photo-1437418747212-8d9709afab22?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Cerveza poker",
+          "description": "Cervezas.",
+          "directAdd": true
+        },
+        {
+          "name": "Cerveza Águila Light",
+          "price": 7000,
+          "image": "https://images.unsplash.com/photo-1468465236047-6aac20937e26?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Cerveza aguila light",
+          "description": "Cervezas.",
+          "directAdd": true
+        },
+        {
+          "name": "Cerveza Club Colombia",
+          "price": 7000,
+          "image": "https://images.unsplash.com/photo-1437418747212-8d9709afab22?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Cerveza club colombia",
+          "description": "Cervezas.",
+          "directAdd": true
+        },
+        {
+          "name": "Recargo por Cerveza Michelada",
+          "price": 1000,
+          "image": "https://images.unsplash.com/photo-1510626176961-4b57d4fbad03?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Recargo cerveza michelada",
+          "description": "Recargo adicional por michelada.",
+          "directAdd": true
+        },
+        {
+          "name": "Cerveza Corona",
+          "price": 10000,
+          "image": "https://images.unsplash.com/photo-1437418747212-8d9709afab22?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Cerveza corona",
+          "description": "Cervezas.",
+          "directAdd": true
+        },
+        {
+          "name": "Cerveza Heineken",
+          "price": 10000,
+          "image": "https://images.unsplash.com/photo-1437418747212-8d9709afab22?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Cerveza heineken",
+          "description": "Cervezas.",
+          "directAdd": true
+        },
+        {
+          "name": "Limonada de Coco",
+          "price": 12000,
+          "image": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Limonada de coco",
+          "description": "Limonadas."
+        },
+        {
+          "name": "Limonada Natural",
+          "price": 8000,
+          "image": "https://images.unsplash.com/photo-1527169402691-feff5539e52c?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Limonada natural",
+          "description": "Limonadas."
+        },
+        {
+          "name": "Limonada Sandía",
+          "price": 10000,
+          "image": "https://images.unsplash.com/photo-1497534446932-c925b458314e?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Limonada de sandía",
+          "description": "Limonadas."
+        },
+        {
+          "name": "Limonada Corozo",
+          "price": 10000,
+          "image": "https://images.unsplash.com/photo-1497534446932-c925b458314e?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Limonada de corozo",
+          "description": "Limonadas."
+        },
+        {
+          "name": "Limonada Mango Biche",
+          "price": 10000,
+          "image": "https://images.unsplash.com/photo-1497534446932-c925b458314e?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Limonada de mango biche",
+          "description": "Limonadas."
+        },
+        {
+          "name": "Limonada Cereza",
+          "price": 12000,
+          "image": "https://images.unsplash.com/photo-1497534446932-c925b458314e?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Limonada de cereza",
+          "description": "Limonadas."
+        }
+      ]
+    },
+    {
+      "id": "adicionales",
+      "label": "Adicionales",
+      "eyebrow": "Extras",
+      "title": "Adicionales",
+      "description": "Complementa tu plato con porciones adicionales.",
+      "items": [
+        {
+          "name": "Porción de Arroz",
+          "price": 4000,
+          "image": "https://images.unsplash.com/photo-1516684732162-798a0062be99?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Porción de arroz",
+          "description": "Porción adicional de arroz blanco.",
+          "directAdd": true
+        },
+        {
+          "name": "Porción de Arroz con Coco",
+          "price": 5000,
+          "image": "https://images.unsplash.com/photo-1516684732162-798a0062be99?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Porción de arroz con coco",
+          "description": "Porción adicional de arroz con coco.",
+          "directAdd": true
+        },
+        {
+          "name": "Porción de Patacón",
+          "price": 4000,
+          "image": "https://images.unsplash.com/photo-1526318896980-cf78c088247c?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Porción de patacón",
+          "description": "Porción adicional de patacón.",
+          "directAdd": true
+        },
+        {
+          "name": "Caldo Peligroso",
+          "price": 14000,
+          "image": "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Caldo peligroso",
+          "description": "Caldo especial de la casa.",
+          "directAdd": true
+        },
+        {
+          "name": "Caldo Pequeño",
+          "price": 10000,
+          "image": "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Caldo pequeno",
+          "description": "Caldo pequeño.",
+          "directAdd": true
+        },
+        {
+          "name": "Porción de Pescado",
+          "price": 17000,
+          "image": "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Porción de pescado",
+          "description": "Frito o en salsa. Acompañado con 3 patacones.",
+          "fishOptions": [
+            "Mojarra",
+            "Trucha",
+            "Sierra",
+            "Bocachico",
+            "Basa",
+            "Chuleta"
+          ],
+          "noRice": true
+        }
+      ]
+    },
+    {
+      "id": "pescados",
+      "label": "Pescados",
+      "eyebrow": "De la costa",
+      "title": "Pescados",
+      "description": "Pescados frescos preparados al momento.",
+      "items": [
+        {
+          "name": "Filete Tilapia Apanado",
+          "price": 43000,
+          "image": "https://images.unsplash.com/photo-1505576399279-565b52d4ac71?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Filete de tilapia apanado",
+          "description": "Acompañado con caldo, arroz, patacón y ensalada."
+        },
+        {
+          "name": "Pescado Frito",
+          "priceOptions": [
+            { "label": "Normal", "price": 37000 },
+            { "label": "Súper", "price": 42000 }
+          ],
+          "image": "https://images.unsplash.com/photo-1471189641895-16c58a695bcb?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Pescado frito",
+          "description": "Acompañado con caldo, arroz, patacón y ensalada."
+        },
+        {
+          "name": "Sancocho de Pescado",
+          "priceOptions": [
+            { "label": "Normal", "price": 40000 },
+            { "label": "Súper", "price": 45000 }
+          ],
+          "image": "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Sancocho de pescado",
+          "description": "Acompañado con arroz, patacón y ensalada."
+        },
+        {
+          "name": "Viudo de Pescado",
+          "priceOptions": [
+            { "label": "Normal", "price": 40000 },
+            { "label": "Súper", "price": 45000 }
+          ],
+          "image": "https://images.unsplash.com/photo-1471189641895-16c58a695bcb?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Viudo de pescado",
+          "description": "Pescado en salsa con plátano, yuca y papa. Acompañado con caldo, arroz, patacón y ensalada."
+        },
+        {
+          "name": "Chuleta de Pescado",
+          "price": 40000,
+          "image": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Chuleta de pescado",
+          "description": "Acompañado con caldo, arroz, patacón y ensalada.",
+          "noStyle": true
+        },
+        {
+          "name": "Pescado a la Sabrosura del Mar",
+          "price": 43000,
+          "image": "https://images.unsplash.com/photo-1505576399279-565b52d4ac71?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Pescado a la sabrosura del mar",
+          "description": "Pescado frito y en salsa. Acompañado con caldo, arroz, patacón y ensalada."
+        },
+        {
+          "name": "Trucha a la Plancha",
+          "price": 40000,
+          "image": "https://images.unsplash.com/photo-1471189641895-16c58a695bcb?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Trucha a la plancha",
+          "description": "Acompañada con arroz, patacón y ensalada."
+        },
+        {
+          "name": "Pescado al Ajillo",
+          "price": 43000,
+          "image": "https://images.unsplash.com/photo-1505576399279-565b52d4ac71?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Pescado al ajillo",
+          "description": "Acompañado con caldo, arroz, patacón y ensalada."
+        },
+        {
+          "name": "Pescado en Salsa Marinera",
+          "price": 70000,
+          "image": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Pescado en salsa marinera",
+          "description": "Acompañado con caldo, arroz, patacón y ensalada."
+        },
+        {
+          "name": "Salmón Gratinado",
+          "price": 53000,
+          "image": "https://images.unsplash.com/photo-1505576399279-565b52d4ac71?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Salmon gratinado",
+          "description": "Acompañado con caldo, arroz, patacón y ensalada."
+        },
+        {
+          "name": "Salmón al Ajillo",
+          "price": 53000,
+          "image": "https://images.unsplash.com/photo-1471189641895-16c58a695bcb?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Salmon al ajillo",
+          "description": "Acompañado con caldo, arroz, patacón y ensalada."
+        },
+        {
+          "name": "Salmón en Salsa Marinera",
+          "price": 70000,
+          "image": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Salmon en salsa marinera",
+          "description": "Acompañado con caldo, arroz, patacón y ensalada."
+        },
+        {
+          "name": "Pescado Gratinado",
+          "price": 50000,
+          "image": "https://images.unsplash.com/photo-1471189641895-16c58a695bcb?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Pescado gratinado",
+          "description": "Trucha gratinada en queso. Acompañada con caldo, arroz, patacón y ensalada."
+        },
+        {
+          "name": "Salmón a la Plancha",
+          "price": 50000,
+          "image": "https://images.unsplash.com/photo-1505576399279-565b52d4ac71?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Salmon a la plancha",
+          "description": "Acompañado con caldo, arroz, patacón y ensalada."
+        }
+      ]
+    },
+    {
+      "id": "especialidades",
+      "label": "Especialidades",
+      "eyebrow": "De la casa",
+      "title": "Especialidades",
+      "description": "Creaciones destacadas del chef.",
+      "items": [
+        {
+          "name": "Langosta Rellena",
+          "priceText": "Según temporada y peso",
+          "image": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Langosta rellena",
+          "description": "Langosta en salsa de mariscos. Acompañada con caldo, patacón y ensalada.",
+          "whatsappMessage": "Hola, estoy interesado en conocer mas sobre la langosta rellena."
+        },
+        {
+          "name": "Bandeja Caribeña",
+          "price": 60000,
+          "image": "https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Bandeja caribeña",
+          "description": "Mariscos en salsa. Acompañada con arroz, caldo, patacón y ensalada. Incluye una porción de pescado.",
+          "noStyle": true
+        },
+        {
+          "name": "Bandeja Viña del Mar",
+          "price": 65000,
+          "image": "https://images.unsplash.com/photo-1506354666786-959d6d497f1a?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Bandeja viña del mar",
+          "description": "Media langosta en salsa de mariscos. Acompañada con arroz, caldo, patacón y ensalada.",
+          "noStyle": true
+        },
+        {
+          "name": "Camarones al Ajillo",
+          "price": 42000,
+          "image": "https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Camarones al ajillo",
+          "description": "Camarones en ajo. Acompañados con arroz, caldo, patacón y ensalada.",
+          "noStyle": true,
+          "noRice": true
+        },
+        {
+          "name": "Camarones Apanados",
+          "price": 42000,
+          "image": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Camarones apanados",
+          "description": "Acompañados con arroz, caldo, patacón y ensalada.",
+          "noStyle": true,
+          "noRice": true
+        },
+        {
+          "name": "Camarones Calientes",
+          "price": 44000,
+          "image": "https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Camarones calientes",
+          "description": "Camarones en salsa especial de la casa. Acompañados con arroz, caldo, patacón y ensalada.",
+          "noStyle": true,
+          "noRice": true
+        },
+        {
+          "name": "Camarones en Leche de Coco",
+          "price": 44000,
+          "image": "https://images.unsplash.com/photo-1506354666786-959d6d497f1a?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Camarones en leche de coco",
+          "description": "Camarones apanados en salsa de leche de coco. Acompañados con arroz, caldo, patacón y ensalada.",
+          "noStyle": true,
+          "noRice": true
+        },
+        {
+          "name": "Langostinos Apanados",
+          "price": 60000,
+          "image": "https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Langostinos apanados",
+          "description": "8 langostinos. Acompañados con arroz, caldo, patacón y ensalada.",
+          "noStyle": true,
+          "noRice": true
+        },
+        {
+          "name": "Langostinos en Salsa Marinera",
+          "price": 63000,
+          "image": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Langostinos en salsa marinera",
+          "description": "4 langostinos en salsa marinera. Acompañados con arroz, caldo, patacón y ensalada.",
+          "noStyle": true,
+          "noRice": true
+        },
+        {
+          "name": "Langostinos en Leche de Coco",
+          "price": 60000,
+          "image": "https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Langostinos en leche de coco",
+          "description": "8 langostinos apanados en salsa de leche de coco. Acompañados con arroz, caldo, patacón y ensalada.",
+          "noStyle": true,
+          "noRice": true
+        },
+        {
+          "name": "Pasta a la Marinera",
+          "price": 41000,
+          "image": "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Pasta a la marinera",
+          "description": "Todos los mariscos en salsa de la casa. Acompañado con patacón.",
+          "noStyle": true,
+          "noRice": true
+        },
+        {
+          "name": "1/2 Pasta a la Marinera",
+          "price": 29000,
+          "image": "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Media porción de pasta a la marinera",
+          "description": "Media porción. Todos los mariscos en salsa de la casa. Acompañado con patacón.",
+          "noStyle": true,
+          "noRice": true
+        },
+        {
+          "name": "Pasta con Camarones",
+          "price": 41000,
+          "image": "https://images.unsplash.com/photo-1521389508051-d7ffb5dc8e8b?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Pasta con camarones",
+          "description": "Camarones en salsa de la casa. Acompañado con patacón.",
+          "noStyle": true,
+          "noRice": true
+        },
+        {
+          "name": "1/2 Pasta con Camarones",
+          "price": 29000,
+          "image": "https://images.unsplash.com/photo-1521389508051-d7ffb5dc8e8b?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Media porción de pasta con camarones",
+          "description": "Media porción. Camarones en salsa de la casa. Acompañado con patacón.",
+          "noStyle": true,
+          "noRice": true
+        },
+        {
+          "name": "Patacón a la Marinera",
+          "price": 35000,
+          "image": "https://images.unsplash.com/photo-1526318896980-cf78c088247c?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Patacón a la marinera",
+          "description": "Patacón con salsa de mariscos y caldo."
+        },
+        {
+          "name": "Crema de Pescado",
+          "price": 31000,
+          "image": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Crema de pescado",
+          "description": "Sierra desmenuzada. Acompañada con arroz y patacón.",
+          "noStyle": true
+        },
+        {
+          "name": "Chuleta en Salsa Marinera",
+          "price": 65000,
+          "image": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Chuleta en salsa marinera",
+          "description": "Chuleta en salsa de mariscos. Acompañada con caldo, arroz, patacón y ensalada.",
+          "noStyle": true
+        }
+      ]
+    },
+    {
+      "id": "ceviches",
+      "label": "Ceviches",
+      "eyebrow": "Frescos",
+      "title": "Ceviches",
+      "description": "Ceviches con cítricos y mariscos frescos.",
+      "items": [
+        {
+          "name": "Ceviche de Camarón",
+          "priceOptions": [
+            { "label": "Personal", "price": 30000 },
+            { "label": "Grande", "price": 35000 }
+          ],
+          "image": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Ceviche de camarón",
+          "description": "Contiene sólo camarón."
+        },
+        {
+          "name": "Ceviche de Camarón con Langostino",
+          "price": 44000,
+          "image": "https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Ceviche de camarón con langostino",
+          "description": "Contiene camarón y 2 langostinos."
+        },
+        {
+          "name": "Ceviche Bomba",
+          "priceOptions": [
+            { "label": "Personal", "price": 30000 },
+            { "label": "Grande", "price": 35000 }
+          ],
+          "image": "https://images.unsplash.com/photo-1506354666786-959d6d497f1a?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Ceviche bomba",
+          "description": "Contiene sólo camarón, calamar, pulpo y caracol."
+        },
+        {
+          "name": "Ceviche Bomba Especial con Langostino",
+          "price": 44000,
+          "image": "https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Ceviche bomba especial con langostino",
+          "description": "Contiene camarón, calamar, pulpo, caracol y 2 langostinos."
+        },
+        {
+          "name": "Coctel de Langostinos",
+          "price": 55000,
+          "image": "https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?auto=format&fit=crop&w=800&q=80",
+          "imageAlt": "Coctel de langostinos",
+          "description": "Contiene 8 langostinos."
+        }
+      ]
+    }
+  ]
+}
