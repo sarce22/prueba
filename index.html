@@ -10,6 +10,11 @@
       href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css"
+    />
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
     <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
@@ -26,6 +31,9 @@
     <button class="cart-float is-hidden" id="cart-float" type="button" aria-label="Ver carrito">
       <span class="cart-float-label">Carrito</span>
       <span class="cart-float-count" id="cart-float-count">0</span>
+    </button>
+    <button class="scroll-top" id="scroll-top" type="button" aria-label="Volver arriba">
+      ↑
     </button>
     <header class="site-header">
       <div class="brand">
@@ -85,6 +93,7 @@
           <span>Total</span>
           <strong id="invoice-total">$0</strong>
         </div>
+        <p class="invoice-note">Tiempo estimado de entrega: aprox. 50 min.</p>
         <button class="checkout-btn" type="button" id="invoice-confirm">Confirmar pedido</button>
       </div>
     </div>
@@ -102,12 +111,12 @@
 
           <fieldset class="custom-group is-hidden" id="custom-price-group">
             <legend>Elige el tamaño</legend>
-            <div id="custom-price-options"></div>
+            <select id="custom-price-select" name="custom-price"></select>
           </fieldset>
 
           <fieldset class="custom-group is-hidden" id="custom-fish-group">
             <legend>Elige el pescado</legend>
-            <div id="custom-fish-options"></div>
+            <select id="custom-fish-select" name="custom-fish"></select>
           </fieldset>
 
           <fieldset class="custom-group" id="custom-style-group">
@@ -212,6 +221,8 @@
       <p>&copy; 2024 Pedidos Restaurantes. Todos los derechos reservados.</p>
       <p>Calle 12 #34-56, Cartagena &bull; Reserva al (300) 123-4567</p>
     </footer>
+    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
     <script src="js/app.js"></script>
   </body>
 </html>

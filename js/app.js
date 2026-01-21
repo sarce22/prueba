@@ -1,6 +1,7 @@
 const cartMap = new Map();
 
 const WHATSAPP_NUMBER = '573122477439';
+const PACKAGING_FEE = 2000;
 
 const cartList = document.getElementById('cart-items');
 const cartCount = document.getElementById('cart-count');
@@ -17,9 +18,9 @@ const customModal = document.getElementById('custom-modal');
 const customForm = document.getElementById('custom-form');
 const customDishName = document.getElementById('custom-dish-name');
 const customPriceGroup = document.getElementById('custom-price-group');
-const customPriceOptions = document.getElementById('custom-price-options');
+const customPriceSelect = document.getElementById('custom-price-select');
 const customFishGroup = document.getElementById('custom-fish-group');
-const customFishOptions = document.getElementById('custom-fish-options');
+const customFishSelect = document.getElementById('custom-fish-select');
 const customRiceGroup = document.getElementById('custom-rice-group');
 const customStyleGroup = document.getElementById('custom-style-group');
 const customQuickGroup = document.getElementById('custom-quick-group');
@@ -33,6 +34,7 @@ const toastContainer = document.getElementById('toast-container');
 const cartFloat = document.getElementById('cart-float');
 const cartFloatCount = document.getElementById('cart-float-count');
 const cartPanel = document.querySelector('.cart-panel');
+const scrollTopBtn = document.getElementById('scroll-top');
 const reserveBtn = document.getElementById('reserve-btn');
 const reserveModal = document.getElementById('reserve-modal');
 const reserveForm = document.getElementById('reserve-form');
@@ -40,6 +42,10 @@ const reserveCloseBtn = document.getElementById('reserve-close');
 const reserveCancelBtn = document.getElementById('reserve-cancel');
 
 let pendingDish = null;
+let priceChoices = null;
+let fishChoices = null;
+let activeCategory = 'all';
+let menuData = null;
 
 const currencyFormatter = new Intl.NumberFormat('es-CO', {
   style: 'currency',
@@ -55,14 +61,26 @@ function formatPriceTag(value) {
   return `$${Number(value).toLocaleString('es-CO')}`;
 }
 
+function addPackagingFee(value) {
+  const numericValue = Number(value);
+  if (Number.isNaN(numericValue)) {
+    return value;
+  }
+  return numericValue + PACKAGING_FEE;
+}
+
+function getAdjustedPrice(value) {
+  return Number(addPackagingFee(value));
+}
+
 function formatPriceDisplay(item) {
   if (item.priceText) {
     return item.priceText;
   }
   if (Array.isArray(item.priceOptions) && item.priceOptions.length > 0) {
-    return item.priceOptions.map((option) => formatPriceTag(option.price)).join(' / ');
+    return item.priceOptions.map((option) => formatPriceTag(addPackagingFee(option.price))).join(' / ');
   }
-  return formatPriceTag(item.price);
+  return formatPriceTag(addPackagingFee(item.price));
 }
 
 function applyFilter(category) {
@@ -95,7 +113,8 @@ function renderCart() {
   let totalPrice = 0;
 
   cartMap.forEach((item) => {
-    const lineTotal = item.price * item.quantity;
+    const unitPrice = getAdjustedPrice(item.basePrice);
+    const lineTotal = unitPrice * item.quantity;
     totalItems += item.quantity;
     totalPrice += lineTotal;
 
@@ -106,7 +125,7 @@ function renderCart() {
       <div>
         <p class="cart-item-name">${item.name}</p>
         ${item.options ? `<p class="cart-item-options">${item.options}</p>` : ''}
-        <p class="cart-item-price">${item.quantity} × ${formatCurrency(item.price)} · <strong>${formatCurrency(lineTotal)}</strong></p>
+        <p class="cart-item-price">${item.quantity} × ${formatCurrency(unitPrice)} · <strong>${formatCurrency(lineTotal)}</strong></p>
       </div>
       <div class="cart-item-actions">
         <button class="qty-btn" data-action="decrement" data-key="${item.key}" aria-label="Restar ${item.name}">−</button>
@@ -127,10 +146,10 @@ function renderCart() {
   }
 }
 
-function addToCart(name, price, options) {
+function addToCart(name, basePrice, options) {
   const optionLabel = options && options.length > 0 ? options : 'Preparación estándar';
   const key = `${name}::${optionLabel}`;
-  const existing = cartMap.get(key) || { key, name, price, options: optionLabel, quantity: 0 };
+  const existing = cartMap.get(key) || { key, name, basePrice, options: optionLabel, quantity: 0 };
   existing.quantity += 1;
   cartMap.set(key, existing);
   renderCart();
@@ -208,36 +227,50 @@ function openCustomizationModal(name, price, triggerButton) {
   };
   customDishName.textContent = name;
   customForm.reset();
-  if (customPriceGroup && customPriceOptions) {
-    customPriceOptions.innerHTML = '';
+  if (customPriceGroup && customPriceSelect) {
+    customPriceSelect.innerHTML = '';
     if (Array.isArray(priceOptions) && priceOptions.length > 0) {
       customPriceGroup.classList.remove('is-hidden');
-      priceOptions.forEach((option, index) => {
-        const label = document.createElement('label');
-        const optionLabel = option.label || `Opción ${index + 1}`;
-        label.innerHTML = `
-          <input type="radio" name="custom-price" value="${option.price}" ${index === 0 ? 'checked' : ''} />
-          ${optionLabel} <span class="option-extra">(${formatCurrency(option.price)})</span>
-        `;
-        customPriceOptions.appendChild(label);
+      priceOptions.forEach((option) => {
+        const optionLabel = option.label || 'Opción';
+        const optionPrice = addPackagingFee(option.price);
+        const opt = document.createElement('option');
+        opt.value = String(option.price);
+        opt.textContent = `${optionLabel} (${formatCurrency(optionPrice)})`;
+        customPriceSelect.appendChild(opt);
       });
+      if (window.Choices) {
+        if (priceChoices) {
+          priceChoices.destroy();
+        }
+        priceChoices = new Choices(customPriceSelect, {
+          searchEnabled: false,
+          itemSelectText: '',
+        });
+      }
     } else {
       customPriceGroup.classList.add('is-hidden');
     }
   }
-  if (customFishGroup && customFishOptions) {
-    customFishOptions.innerHTML = '';
+  if (customFishGroup && customFishSelect) {
+    customFishSelect.innerHTML = '';
     if (Array.isArray(fishOptions) && fishOptions.length > 0) {
       customFishGroup.classList.remove('is-hidden');
-      fishOptions.forEach((option, index) => {
-        const label = document.createElement('label');
-        const optionLabel = option || `Opción ${index + 1}`;
-        label.innerHTML = `
-          <input type="radio" name="custom-fish" value="${optionLabel}" ${index === 0 ? 'checked' : ''} />
-          ${optionLabel}
-        `;
-        customFishOptions.appendChild(label);
+      fishOptions.forEach((option) => {
+        const opt = document.createElement('option');
+        opt.value = option;
+        opt.textContent = option;
+        customFishSelect.appendChild(opt);
       });
+      if (window.Choices) {
+        if (fishChoices) {
+          fishChoices.destroy();
+        }
+        fishChoices = new Choices(customFishSelect, {
+          searchEnabled: false,
+          itemSelectText: '',
+        });
+      }
     } else {
       customFishGroup.classList.add('is-hidden');
     }
@@ -326,7 +359,8 @@ function buildWhatsappMessage() {
   }
   let total = 0;
   const lines = Array.from(cartMap.values()).map((item) => {
-    const lineTotal = item.price * item.quantity;
+    const unitPrice = getAdjustedPrice(item.basePrice);
+    const lineTotal = unitPrice * item.quantity;
     total += lineTotal;
     let optionsText = '';
     if (item.options) {
@@ -414,6 +448,7 @@ function createDishCard(item, categoryId) {
   const hasWhatsappMessage = Boolean(item.whatsappMessage);
   const li = document.createElement('li');
   li.className = 'dish-card';
+  li.dataset.aos = 'fade-up';
   li.innerHTML = `
     <article class="dish-card-inner">
       <div class="dish-media">
@@ -474,6 +509,7 @@ function renderMenuSections(categories) {
     return;
   }
   menuSectionsContainer.innerHTML = '';
+  let hasAny = false;
   categories.forEach((category) => {
     const section = document.createElement('section');
     section.className = 'menu-section';
@@ -495,7 +531,11 @@ function renderMenuSections(categories) {
       list.appendChild(createDishCard(item, category.id));
     });
     menuSectionsContainer.appendChild(section);
+    hasAny = true;
   });
+  if (window.AOS) {
+    AOS.refreshHard();
+  }
 }
 
 async function loadMenu() {
@@ -509,8 +549,9 @@ async function loadMenu() {
     }
     const data = await response.json();
     const categories = Array.isArray(data.categories) ? data.categories : [];
-    renderFilters(categories);
-    renderMenuSections(categories);
+    menuData = categories;
+    renderFilters(menuData);
+    renderMenuSections(menuData);
     applyFilter('all');
   } catch (error) {
     menuSectionsContainer.innerHTML = '<p class="menu-empty">No pudimos cargar la carta.</p>';
@@ -523,6 +564,7 @@ menuFilters?.addEventListener('click', (event) => {
     return;
   }
   const category = button.dataset.filter || 'all';
+  activeCategory = category;
   menuFilters.querySelectorAll('.filter-btn').forEach((btn) => {
     btn.classList.toggle('active', btn === button);
   });
@@ -605,6 +647,31 @@ cartFloat?.addEventListener('click', () => {
   }
   cartPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
 });
+
+function updateScrollTopButton() {
+  if (!scrollTopBtn) {
+    return;
+  }
+  scrollTopBtn.classList.toggle('is-visible', window.scrollY > 400);
+}
+
+scrollTopBtn?.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+window.addEventListener('scroll', updateScrollTopButton, { passive: true });
+updateScrollTopButton();
+
+if (cartFloat && cartPanel && 'IntersectionObserver' in window) {
+  const cartObserver = new IntersectionObserver(
+    (entries) => {
+      const isVisible = entries.some((entry) => entry.isIntersecting);
+      cartFloat.classList.toggle('is-hidden', isVisible || cartMap.size === 0);
+    },
+    { threshold: 0.2 }
+  );
+  cartObserver.observe(cartPanel);
+}
 
 customForm?.addEventListener('submit', (event) => {
   event.preventDefault();
@@ -698,7 +765,8 @@ function openInvoiceModal() {
   let total = 0;
 
   items.forEach((item) => {
-    const lineTotal = item.price * item.quantity;
+    const unitPrice = getAdjustedPrice(item.basePrice);
+    const lineTotal = unitPrice * item.quantity;
     total += lineTotal;
     const li = document.createElement('li');
     li.className = 'invoice-item';
@@ -754,3 +822,11 @@ invoiceConfirmBtn?.addEventListener('click', () => {
 
 loadMenu();
 renderCart();
+
+if (window.AOS) {
+  AOS.init({
+    duration: 500,
+    easing: 'ease-out',
+    once: true,
+  });
+}

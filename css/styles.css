@@ -133,6 +133,7 @@ main {
   margin-bottom: 1rem;
 }
 
+
 .filter-btn {
   border: 1px solid rgba(12, 108, 212, 0.4);
   background: #fff;
@@ -421,6 +422,25 @@ main {
 .reserve-form input:focus {
   outline: 2px solid rgba(12, 108, 212, 0.2);
   border-color: rgba(12, 108, 212, 0.5);
+}
+
+.custom-group select {
+  border: 1px solid rgba(17, 34, 64, 0.2);
+  border-radius: 12px;
+  padding: 0.65rem 0.75rem;
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--text);
+  background: #fff;
+}
+
+.custom-group select:focus {
+  outline: 2px solid rgba(12, 108, 212, 0.2);
+  border-color: rgba(12, 108, 212, 0.5);
+}
+
+.custom-group .choices {
+  width: 100%;
 }
 
 .custom-actions {
@@ -912,6 +932,38 @@ main {
   cursor: pointer;
   z-index: 35;
   transition: transform 200ms ease, box-shadow 200ms ease, opacity 200ms ease;
+}
+
+.scroll-top {
+  position: fixed;
+  right: 1rem;
+  bottom: 5rem;
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 50%;
+  background: var(--primary);
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: 0 16px 26px rgba(12, 108, 212, 0.3);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(10px);
+  transition: opacity 200ms ease, transform 200ms ease, box-shadow 200ms ease;
+  z-index: 35;
+}
+
+.scroll-top.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.scroll-top:hover {
+  box-shadow: 0 20px 32px rgba(12, 108, 212, 0.35);
+  transform: translateY(-2px);
 }
 
 .cart-float::before {
