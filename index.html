@@ -7,8 +7,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&family=Bebas+Neue&display=swap"
       rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
     />
     <link
       rel="stylesheet"
@@ -20,10 +26,10 @@
   <body>
     <div class="intro-overlay" id="intro-overlay" aria-hidden="false">
       <div class="intro-card">
-        <img src="images/logo.png" alt="Logo de Pedidos Restaurantes" />
+        <img src="images/logosaboryvelocidad.png" alt="Logo de Pedidos Restaurantes" />
         <p class="eyebrow">Bienvenidos</p>
-        <h2>Sabores del mar directo a tu mesa</h2>
-        <p>Explora nuestra carta y arma tu pedido con tus preferencias.</p>
+        <h2>De todo para tu antojo</h2>
+        <p>Hamburguesas, perros, salchipapas, arepas, empanadas, sushi y bebidas.</p>
         <button class="cta intro-continue" type="button" id="intro-continue">Continuar</button>
       </div>
     </div>
@@ -36,23 +42,54 @@
       ↑
     </button>
     <header class="site-header">
-      <div class="brand">
-        <img src="images/logo.png" alt="Logo de Pedidos Restaurantes" />
-        <div>
-          <p class="eyebrow">Restaurante de cocina costeña</p>
-          <h1>Pedidos Restaurantes</h1>
-          <p class="tagline">
-            Pescados frescos, sazón casera y el sabor de la costa en cada plato.
-          </p>
+      <div class="flame-layer" aria-hidden="true"></div>
+      <div class="header-inner">
+        <div class="brand">
+          <div class="logo-wrap">
+            <img src="images/logosaboryvelocidad.png" alt="Logo de Pedidos Restaurantes" />
+          </div>
+          <div class="brand-copy">
+            <p class="eyebrow">Sabor y velocidad</p>
+            <h1>Pedidos Restaurantes</h1>
+            <p class="tagline">
+              Un solo lugar para tus antojos: parrilla, fritos, arepas y sushi.
+            </p>
+          </div>
+        </div>
+        <button class="cta" id="reserve-btn" type="button">Reserva tu mesa</button>
+      </div>
+    </header>
+
+    <section class="hero" id="hero">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <span class="hero-badge">Combo del dia -15%</span>
+          <h2>Rapido, potente y con sazón callejera.</h2>
+          <p>Arma tu combo favorito en minutos: hamburguesa, papas y bebida.</p>
+          <button class="cta hero-cta" id="hero-cta" type="button">Pedir ahora</button>
+        </div>
+        <div class="hero-panel">
+          <div class="hero-panel-inner">
+            <p class="hero-panel-title">Top del dia</p>
+            <p class="hero-panel-name">Hamburguesa doble queso</p>
+            <p class="hero-panel-note">+ papas + gaseosa</p>
+          </div>
         </div>
       </div>
-      <button class="cta" id="reserve-btn" type="button">Reserva tu mesa</button>
-    </header>
+    </section>
 
     <main class="menu-layout">
       <div class="menu-content">
+      <section class="featured" id="featured">
+        <div class="featured-header">
+          <p class="eyebrow">Mas vendidos</p>
+          <h2>Los favoritos de la casa</h2>
+        </div>
+        <ul class="featured-list" id="featured-list"></ul>
+      </section>
       <div class="menu-filters" id="menu-filters" role="group" aria-label="Filtrar categorías de menú"></div>
       <div id="menu-sections"></div>
+      <div class="menu-skeleton" id="menu-skeleton" aria-hidden="true"></div>
       </div>
 
       <aside class="cart-panel" aria-labelledby="cart-title">
@@ -61,10 +98,10 @@
             <p class="eyebrow">Tu pedido</p>
             <h2 id="cart-title">Carrito</h2>
           </div>
-          <span class="cart-count" id="cart-count">0 platos</span>
+          <span class="cart-count" id="cart-count">0 productos</span>
         </div>
         <ul class="cart-items" id="cart-items">
-          <li class="cart-empty">Aún no tienes platos agregados.</li>
+          <li class="cart-empty">Aún no tienes productos agregados.</li>
         </ul>
         <div class="cart-footer">
           <div class="cart-total">
@@ -77,6 +114,27 @@
         </div>
       </aside>
     </main>
+
+    <section class="map-section" id="map-section">
+      <div class="map-inner">
+        <div class="map-copy">
+          <p class="eyebrow">Encuentranos</p>
+          <h2>Estamos en el corazon de Armenia</h2>
+          <p>Ven por tu combo o pide rapido desde tu zona en Quindio.</p>
+        </div>
+        <div class="map-card">
+          <div class="map-embed" id="map"></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="mobile-cta" id="mobile-cta" aria-live="polite">
+      <div class="mobile-cta-info">
+        <span class="mobile-cta-label">Total</span>
+        <strong class="mobile-cta-total" id="mobile-cta-total">$0</strong>
+      </div>
+      <button class="cta mobile-cta-btn" id="mobile-cta-btn" type="button">Pedir ahora</button>
+    </div>
 
     <div class="invoice-modal" id="invoice-modal" aria-hidden="true">
       <div class="invoice-dialog" role="dialog" aria-modal="true" aria-labelledby="invoice-title">
@@ -98,6 +156,40 @@
       </div>
     </div>
 
+    <div class="invoice-modal" id="customer-modal" aria-hidden="true">
+      <div class="invoice-dialog" role="dialog" aria-modal="true" aria-labelledby="customer-title">
+        <form id="customer-form" class="reserve-form">
+          <div class="invoice-header">
+            <div>
+              <p class="eyebrow">Datos del cliente</p>
+              <h2 id="customer-title">Completa tu pedido</h2>
+            </div>
+            <button class="close-invoice" type="button" id="customer-close" aria-label="Cerrar datos">&times;</button>
+          </div>
+
+          <label class="custom-group">
+            Nombre
+            <input type="text" name="customer-name" placeholder="Tu nombre" required />
+          </label>
+
+          <label class="custom-group">
+            Celular
+            <input type="tel" name="customer-phone" inputmode="tel" placeholder="Ej: 3001234567" required />
+          </label>
+
+          <label class="custom-group">
+            Direccion
+            <input type="text" name="customer-address" placeholder="Calle, barrio, referencia" required />
+          </label>
+
+          <div class="custom-actions">
+            <button type="button" class="secondary-btn" id="customer-cancel">Cancelar</button>
+            <button type="submit" class="checkout-btn">Enviar pedido</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
     <div class="custom-modal" id="custom-modal" aria-hidden="true">
       <div class="custom-dialog" role="dialog" aria-modal="true" aria-labelledby="custom-title">
         <form id="custom-form" class="custom-form">
@@ -114,48 +206,32 @@
             <select id="custom-price-select" name="custom-price"></select>
           </fieldset>
 
-          <fieldset class="custom-group is-hidden" id="custom-fish-group">
-            <legend>Elige el pescado</legend>
-            <select id="custom-fish-select" name="custom-fish"></select>
+          <fieldset class="custom-group is-hidden" id="custom-protein-group">
+            <legend>Elige el relleno</legend>
+            <select id="custom-protein-select" name="custom-protein"></select>
           </fieldset>
 
           <fieldset class="custom-group" id="custom-style-group">
-            <legend>Tipo de preparación</legend>
+            <legend>Punto de cocción</legend>
             <label>
-              <input type="radio" name="custom-style" value="frito" checked />
-              Frito
+              <input type="radio" name="custom-style" value="jugosa" checked />
+              Jugosa
             </label>
             <label>
-              <input type="radio" name="custom-style" value="sudado" />
-              Sudado
-            </label>
-          </fieldset>
-
-          <fieldset class="custom-group is-hidden" id="custom-cut-group">
-            <legend>¿Qué parte prefieres?</legend>
-            <label>
-              <input type="radio" name="custom-cut" value="cabeza" />
-              Cabeza
-            </label>
-            <label>
-              <input type="radio" name="custom-cut" value="centro" checked />
-              Centro
-            </label>
-            <label>
-              <input type="radio" name="custom-cut" value="cola" />
-              Cola
+              <input type="radio" name="custom-style" value="bien" />
+              Bien cocida
             </label>
           </fieldset>
 
-          <fieldset class="custom-group" id="custom-rice-group">
-            <legend>Tipo de arroz</legend>
+          <fieldset class="custom-group" id="custom-side-group">
+            <legend>Acompañamiento</legend>
             <label>
-              <input type="radio" name="custom-rice" value="blanco" checked />
-              Arroz blanco
+              <input type="radio" name="custom-side" value="papas" checked />
+              Papas francesas
             </label>
             <label>
-              <input type="radio" name="custom-rice" value="coco" />
-              Arroz con coco <span class="option-extra" id="coco-extra-note">(+ $2.000)</span>
+              <input type="radio" name="custom-side" value="ensalada" />
+              Ensalada fresca
             </label>
           </fieldset>
 
@@ -218,11 +294,41 @@
     </div>
 
     <footer class="site-footer">
-      <p>&copy; 2024 Pedidos Restaurantes. Todos los derechos reservados.</p>
-      <p>Calle 12 #34-56, Cartagena &bull; Reserva al (300) 123-4567</p>
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <img src="images/logosaboryvelocidad.png" alt="Logo de Pedidos Restaurantes" />
+          <div>
+            <p class="footer-title">Sabores y Velocidad</p>
+            <p class="footer-tagline">Comida urbana rapida, caliente y lista para ti.</p>
+          </div>
+        </div>
+        <div class="footer-columns">
+          <div class="footer-col">
+            <p class="footer-heading">Ubicacion</p>
+            <p>Armenia, Quindio</p>
+            <p>Horario: 11:00 am - 11:00 pm</p>
+          </div>
+          <div class="footer-col">
+            <p class="footer-heading">Contacto</p>
+            <p>WhatsApp: (300) 123-4567</p>
+            <p>Pedidos: (300) 987-6543</p>
+          </div>
+          <div class="footer-col">
+            <p class="footer-heading">Siguenos</p>
+            <p>Instagram: @saboryvelocidad</p>
+            <p>Facebook: /saboryvelocidad</p>
+          </div>
+        </div>
+      </div>
+      <p class="footer-copy">&copy; 2024 Sabores y Velocidad. Todos los derechos reservados.</p>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
     <script src="js/app.js"></script>
   </body>
 </html>

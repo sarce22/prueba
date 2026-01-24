@@ -9,25 +9,30 @@ const cartTotal = document.getElementById('cart-total');
 const checkoutBtn = document.getElementById('checkout-btn');
 const menuFilters = document.getElementById('menu-filters');
 const menuSectionsContainer = document.getElementById('menu-sections');
+const menuSkeleton = document.getElementById('menu-skeleton');
+const featuredList = document.getElementById('featured-list');
+const featuredSection = document.getElementById('featured');
 const invoiceModal = document.getElementById('invoice-modal');
 const invoiceList = document.getElementById('invoice-list');
 const invoiceTotal = document.getElementById('invoice-total');
 const invoiceCloseBtn = document.getElementById('invoice-close');
 const invoiceConfirmBtn = document.getElementById('invoice-confirm');
+const customerModal = document.getElementById('customer-modal');
+const customerForm = document.getElementById('customer-form');
+const customerCloseBtn = document.getElementById('customer-close');
+const customerCancelBtn = document.getElementById('customer-cancel');
 const customModal = document.getElementById('custom-modal');
 const customForm = document.getElementById('custom-form');
 const customDishName = document.getElementById('custom-dish-name');
 const customPriceGroup = document.getElementById('custom-price-group');
 const customPriceSelect = document.getElementById('custom-price-select');
-const customFishGroup = document.getElementById('custom-fish-group');
-const customFishSelect = document.getElementById('custom-fish-select');
-const customRiceGroup = document.getElementById('custom-rice-group');
+const customProteinGroup = document.getElementById('custom-protein-group');
+const customProteinSelect = document.getElementById('custom-protein-select');
+const customSideGroup = document.getElementById('custom-side-group');
 const customStyleGroup = document.getElementById('custom-style-group');
 const customQuickGroup = document.getElementById('custom-quick-group');
 const customCloseBtn = document.getElementById('custom-close');
 const customCancelBtn = document.getElementById('custom-cancel');
-const customCutGroup = document.getElementById('custom-cut-group');
-const cocoExtraNote = document.getElementById('coco-extra-note');
 const introOverlay = document.getElementById('intro-overlay');
 const introContinueBtn = document.getElementById('intro-continue');
 const toastContainer = document.getElementById('toast-container');
@@ -36,6 +41,10 @@ const cartFloatCount = document.getElementById('cart-float-count');
 const cartPanel = document.querySelector('.cart-panel');
 const scrollTopBtn = document.getElementById('scroll-top');
 const reserveBtn = document.getElementById('reserve-btn');
+const heroCta = document.getElementById('hero-cta');
+const mobileCta = document.getElementById('mobile-cta');
+const mobileCtaTotal = document.getElementById('mobile-cta-total');
+const mobileCtaBtn = document.getElementById('mobile-cta-btn');
 const reserveModal = document.getElementById('reserve-modal');
 const reserveForm = document.getElementById('reserve-form');
 const reserveCloseBtn = document.getElementById('reserve-close');
@@ -43,7 +52,7 @@ const reserveCancelBtn = document.getElementById('reserve-cancel');
 
 let pendingDish = null;
 let priceChoices = null;
-let fishChoices = null;
+let proteinChoices = null;
 let activeCategory = 'all';
 let menuData = null;
 
@@ -84,23 +93,35 @@ function formatPriceDisplay(item) {
 }
 
 function applyFilter(category) {
+  const normalized = (category || 'all').toString().trim().toLowerCase();
   const sections = menuSectionsContainer?.querySelectorAll('.menu-section') || [];
   sections.forEach((section) => {
-    if (category === 'all' || section.dataset.category === category) {
+    if (normalized === 'all' || section.dataset.category === normalized) {
       section.classList.remove('is-hidden');
     } else {
       section.classList.add('is-hidden');
     }
   });
+  if (window.AOS) {
+    requestAnimationFrame(() => {
+      AOS.refreshHard();
+    });
+  }
 }
 
 function renderCart() {
   cartList.innerHTML = '';
 
   if (cartMap.size === 0) {
-    cartList.innerHTML = '<li class="cart-empty">Aún no tienes platos agregados.</li>';
-    cartCount.textContent = '0 platos';
+    cartList.innerHTML = '<li class="cart-empty">Aún no tienes productos agregados.</li>';
+    cartCount.textContent = '0 productos';
     cartTotal.textContent = '$0';
+    if (mobileCtaTotal) {
+      mobileCtaTotal.textContent = '$0';
+    }
+    if (mobileCta) {
+      mobileCta.classList.add('is-hidden');
+    }
     checkoutBtn.disabled = true;
     if (cartFloat && cartFloatCount) {
       cartFloatCount.textContent = '0';
@@ -137,8 +158,14 @@ function renderCart() {
     cartList.appendChild(li);
   });
 
-  cartCount.textContent = `${totalItems} ${totalItems === 1 ? 'plato' : 'platos'}`;
+  cartCount.textContent = `${totalItems} ${totalItems === 1 ? 'producto' : 'productos'}`;
   cartTotal.textContent = formatCurrency(totalPrice);
+  if (mobileCtaTotal) {
+    mobileCtaTotal.textContent = formatCurrency(totalPrice);
+  }
+  if (mobileCta) {
+    mobileCta.classList.remove('is-hidden');
+  }
   checkoutBtn.disabled = false;
   if (cartFloat && cartFloatCount) {
     cartFloatCount.textContent = `${totalItems}`;
@@ -147,7 +174,7 @@ function renderCart() {
 }
 
 function addToCart(name, basePrice, options) {
-  const optionLabel = options && options.length > 0 ? options : 'Preparación estándar';
+  const optionLabel = options && options.length > 0 ? options : 'Personalización estándar';
   const key = `${name}::${optionLabel}`;
   const existing = cartMap.get(key) || { key, name, basePrice, options: optionLabel, quantity: 0 };
   existing.quantity += 1;
@@ -191,15 +218,13 @@ function openCustomizationModal(name, price, triggerButton) {
     addToCart(name, price);
     return;
   }
-  const cocoExtra = Number(triggerButton?.dataset.cocoExtra || 0);
   const category = triggerButton?.dataset.category || '';
-  const isCeviche = category === 'ceviches';
   const isBeverage = category === 'bebidas';
-  const isAdicional = category === 'adicionales';
-  const noRice = triggerButton?.dataset.noRice === 'true' || isCeviche || isBeverage;
-  const noStyle = triggerButton?.dataset.noStyle === 'true' || isCeviche || isBeverage;
+  const isSushi = category === 'sushi';
+  const noSide = triggerButton?.dataset.noSide === 'true' || isBeverage || isSushi;
+  const noStyle = triggerButton?.dataset.noStyle === 'true' || isBeverage || isSushi;
   let priceOptions = null;
-  let fishOptions = null;
+  let proteinOptions = null;
   if (triggerButton?.dataset.priceOptions) {
     try {
       priceOptions = JSON.parse(triggerButton.dataset.priceOptions);
@@ -207,22 +232,21 @@ function openCustomizationModal(name, price, triggerButton) {
       priceOptions = null;
     }
   }
-  if (triggerButton?.dataset.fishOptions) {
+  if (triggerButton?.dataset.proteinOptions) {
     try {
-      fishOptions = JSON.parse(triggerButton.dataset.fishOptions);
+      proteinOptions = JSON.parse(triggerButton.dataset.proteinOptions);
     } catch (error) {
-      fishOptions = null;
+      proteinOptions = null;
     }
   }
   pendingDish = {
     name,
     price,
     triggerButton,
-    cocoExtra,
-    noRice,
+    noSide,
     noStyle,
     priceOptions,
-    fishOptions,
+    proteinOptions,
     category,
   };
   customDishName.textContent = name;
@@ -250,34 +274,42 @@ function openCustomizationModal(name, price, triggerButton) {
       }
     } else {
       customPriceGroup.classList.add('is-hidden');
+      if (priceChoices) {
+        priceChoices.destroy();
+        priceChoices = null;
+      }
     }
   }
-  if (customFishGroup && customFishSelect) {
-    customFishSelect.innerHTML = '';
-    if (Array.isArray(fishOptions) && fishOptions.length > 0) {
-      customFishGroup.classList.remove('is-hidden');
-      fishOptions.forEach((option) => {
+  if (customProteinGroup && customProteinSelect) {
+    customProteinSelect.innerHTML = '';
+    if (Array.isArray(proteinOptions) && proteinOptions.length > 0) {
+      customProteinGroup.classList.remove('is-hidden');
+      proteinOptions.forEach((option) => {
         const opt = document.createElement('option');
         opt.value = option;
         opt.textContent = option;
-        customFishSelect.appendChild(opt);
+        customProteinSelect.appendChild(opt);
       });
       if (window.Choices) {
-        if (fishChoices) {
-          fishChoices.destroy();
+        if (proteinChoices) {
+          proteinChoices.destroy();
         }
-        fishChoices = new Choices(customFishSelect, {
+        proteinChoices = new Choices(customProteinSelect, {
           searchEnabled: false,
           itemSelectText: '',
         });
       }
     } else {
-      customFishGroup.classList.add('is-hidden');
+      customProteinGroup.classList.add('is-hidden');
+      if (proteinChoices) {
+        proteinChoices.destroy();
+        proteinChoices = null;
+      }
     }
   }
-  const defaultRice = customForm.querySelector('input[name="custom-rice"][value="blanco"]');
-  if (defaultRice) {
-    defaultRice.checked = true;
+  const defaultSide = customForm.querySelector('input[name="custom-side"][value="papas"]');
+  if (defaultSide) {
+    defaultSide.checked = true;
   }
   if (customStyleGroup) {
     customStyleGroup.classList.toggle('is-hidden', noStyle);
@@ -287,39 +319,26 @@ function openCustomizationModal(name, price, triggerButton) {
         styleInput.checked = false;
       }
     } else {
-      const defaultStyle = customForm.querySelector('input[name="custom-style"][value="frito"]');
+      const defaultStyle = customForm.querySelector('input[name="custom-style"][value="jugosa"]');
       if (defaultStyle) {
         defaultStyle.checked = true;
       }
     }
   }
-  if (customRiceGroup) {
-    customRiceGroup.classList.toggle('is-hidden', noRice);
-  }
-  if (cocoExtraNote) {
-    if (cocoExtra > 0 && !noRice) {
-      cocoExtraNote.textContent = `(+ ${formatCurrency(cocoExtra)})`;
-      cocoExtraNote.style.display = 'inline';
-    } else {
-      cocoExtraNote.style.display = 'none';
-    }
-  }
-  if (customCutGroup) {
-    const shouldShowCut = name.toLowerCase() === 'bocachico';
-    customCutGroup.classList.toggle('is-hidden', !shouldShowCut);
-    const defaultCut = customForm.querySelector('input[name="custom-cut"][value="centro"]');
-    if (!shouldShowCut && defaultCut) {
-      defaultCut.checked = true;
-    }
+  if (customSideGroup) {
+    customSideGroup.classList.toggle('is-hidden', noSide);
   }
   if (customQuickGroup) {
-    const optionLabels = isCeviche
-      ? ['Sin aji', 'Sin cebolla']
-      : isBeverage
-        ? ['Sin hielo', 'Sin azucar']
-        : isAdicional
-          ? []
-        : ['Sin ensalada', 'Sin patacones', 'Extra limón'];
+    const quickOptionsByCategory = {
+      hamburguesas: ['Sin cebolla', 'Sin tomate', 'Extra queso'],
+      perros: ['Sin cebolla', 'Sin papitas', 'Extra queso'],
+      salchipapas: ['Sin salsas', 'Extra queso', 'Extra tocineta'],
+      arepas: ['Sin queso', 'Sin salsa', 'Extra aguacate'],
+      empanadas: ['Sin aji', 'Extra limon'],
+      sushi: ['Sin ajonjoli', 'Extra soya', 'Extra wasabi'],
+      bebidas: ['Sin hielo', 'Sin azucar'],
+    };
+    const optionLabels = quickOptionsByCategory[category] || [];
     const optionRows = Array.from(customQuickGroup.querySelectorAll('.quick-option-row'));
     optionRows.forEach((row, index) => {
       const input = row.querySelector('.quick-option');
@@ -353,7 +372,7 @@ function closeCustomizationModal() {
   pendingDish = null;
 }
 
-function buildWhatsappMessage() {
+function buildWhatsappMessage(customer) {
   if (cartMap.size === 0) {
     return null;
   }
@@ -369,7 +388,14 @@ function buildWhatsappMessage() {
     return `• ${item.quantity} × ${item.name}${optionsText} - ${formatCurrency(lineTotal)}`;
   });
 
-  return `Hola, quiero hacer un pedido:\n${lines.join('\n')}\nTotal: ${formatCurrency(total)}`;
+  const customerLines = customer
+    ? [
+        `Nombre: ${customer.name}`,
+        `Celular: ${customer.phone}`,
+        `Direccion: ${customer.address}`,
+      ]
+    : [];
+  return `Hola, quiero hacer un pedido:\n${customerLines.join('\n')}\n${lines.join('\n')}\nTotal: ${formatCurrency(total)}`;
 }
 
 function showToast(message) {
@@ -435,7 +461,7 @@ function renderFilters(categories) {
     const button = document.createElement('button');
     button.className = 'filter-btn';
     button.type = 'button';
-    button.dataset.filter = category.id;
+    button.dataset.filter = String(category.id || '').trim().toLowerCase();
     button.textContent = category.label || category.title || category.id;
     menuFilters.appendChild(button);
   });
@@ -488,14 +514,11 @@ function createDishCard(item, categoryId) {
     if (item.directAdd) {
       button.dataset.directAdd = 'true';
     }
-    if (item.fishOptions) {
-      button.dataset.fishOptions = JSON.stringify(item.fishOptions);
+    if (item.proteinOptions) {
+      button.dataset.proteinOptions = JSON.stringify(item.proteinOptions);
     }
-    if (item.cocoExtra) {
-      button.dataset.cocoExtra = String(item.cocoExtra);
-    }
-    if (item.noRice) {
-      button.dataset.noRice = 'true';
+    if (item.noSide) {
+      button.dataset.noSide = 'true';
     }
     if (item.noStyle) {
       button.dataset.noStyle = 'true';
@@ -513,7 +536,7 @@ function renderMenuSections(categories) {
   categories.forEach((category) => {
     const section = document.createElement('section');
     section.className = 'menu-section';
-    section.dataset.category = category.id;
+    section.dataset.category = String(category.id || '').trim().toLowerCase();
 
     section.innerHTML = `
       <div class="section-header">
@@ -538,10 +561,83 @@ function renderMenuSections(categories) {
   }
 }
 
+function renderFeatured(categories) {
+  if (!featuredList || !featuredSection) {
+    return;
+  }
+  const allItems = categories.flatMap((category) =>
+    (category.items || []).map((item) => ({
+      item,
+      categoryId: category.id,
+    }))
+  );
+  const featuredItems = allItems.filter(({ item }) => item.featured);
+  if (featuredItems.length < 3) {
+    const existing = new Set(featuredItems.map(({ item }) => item.name));
+    allItems.forEach((entry) => {
+      if (featuredItems.length >= 4) {
+        return;
+      }
+      if (!existing.has(entry.item.name)) {
+        featuredItems.push(entry);
+        existing.add(entry.item.name);
+      }
+    });
+  }
+  featuredList.innerHTML = '';
+  if (featuredItems.length === 0) {
+    featuredSection.classList.add('is-hidden');
+    return;
+  }
+  featuredSection.classList.remove('is-hidden');
+  featuredItems.slice(0, 3).forEach(({ item, categoryId }) => {
+    featuredList.appendChild(createDishCard(item, categoryId));
+  });
+}
+
+function renderSkeleton() {
+  if (!menuSkeleton) {
+    return;
+  }
+  const skeletonSections = Array.from({ length: 2 }, () => `
+    <div class="skeleton-section">
+      <div class="skeleton-header">
+        <span class="skeleton-line short"></span>
+        <span class="skeleton-line medium"></span>
+        <span class="skeleton-line long"></span>
+      </div>
+      <div class="skeleton-grid">
+        ${Array.from({ length: 4 }, () => `
+          <div class="skeleton-card">
+            <div class="skeleton-media"></div>
+            <div class="skeleton-body">
+              <span class="skeleton-line medium"></span>
+              <span class="skeleton-line long"></span>
+              <span class="skeleton-pill"></span>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `).join('');
+  menuSkeleton.innerHTML = skeletonSections;
+}
+
+function setSkeletonVisible(isVisible) {
+  if (!menuSkeleton || !menuSectionsContainer) {
+    return;
+  }
+  menuSkeleton.classList.toggle('is-visible', isVisible);
+  menuSkeleton.setAttribute('aria-hidden', isVisible ? 'false' : 'true');
+  menuSectionsContainer.style.display = isVisible ? 'none' : '';
+}
+
 async function loadMenu() {
   if (!menuSectionsContainer) {
     return;
   }
+  renderSkeleton();
+  setSkeletonVisible(true);
   try {
     const response = await fetch('productos.json', { cache: 'no-store' });
     if (!response.ok) {
@@ -551,10 +647,13 @@ async function loadMenu() {
     const categories = Array.isArray(data.categories) ? data.categories : [];
     menuData = categories;
     renderFilters(menuData);
+    renderFeatured(menuData);
     renderMenuSections(menuData);
     applyFilter('all');
+    setSkeletonVisible(false);
   } catch (error) {
     menuSectionsContainer.innerHTML = '<p class="menu-empty">No pudimos cargar la carta.</p>';
+    setSkeletonVisible(false);
   }
 }
 
@@ -563,7 +662,7 @@ menuFilters?.addEventListener('click', (event) => {
   if (!button || !menuFilters) {
     return;
   }
-  const category = button.dataset.filter || 'all';
+  const category = (button.dataset.filter || 'all').toString().trim().toLowerCase();
   activeCategory = category;
   menuFilters.querySelectorAll('.filter-btn').forEach((btn) => {
     btn.classList.toggle('active', btn === button);
@@ -571,7 +670,7 @@ menuFilters?.addEventListener('click', (event) => {
   applyFilter(category);
 });
 
-menuSectionsContainer?.addEventListener('click', (event) => {
+function handleAddToCartClick(event) {
   const button = event.target.closest('.add-to-cart');
   if (!button || button.disabled) {
     return;
@@ -592,7 +691,10 @@ menuSectionsContainer?.addEventListener('click', (event) => {
     return;
   }
   openCustomizationModal(dish, price, button);
-});
+}
+
+menuSectionsContainer?.addEventListener('click', handleAddToCartClick);
+featuredList?.addEventListener('click', handleAddToCartClick);
 
 customCloseBtn?.addEventListener('click', closeCustomizationModal);
 customCancelBtn?.addEventListener('click', closeCustomizationModal);
@@ -610,6 +712,13 @@ introContinueBtn?.addEventListener('click', () => {
   introOverlay.classList.add('is-hidden');
   introOverlay.setAttribute('aria-hidden', 'true');
   setTimeout(() => introOverlay.remove(), 350);
+});
+
+heroCta?.addEventListener('click', () => {
+  const target = document.getElementById('menu-filters');
+  if (target) {
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
 });
 
 reserveBtn?.addEventListener('click', openReserveModal);
@@ -683,10 +792,9 @@ customForm?.addEventListener('submit', (event) => {
     name,
     price,
     priceOptions,
-    fishOptions,
+    proteinOptions,
     triggerButton,
-    cocoExtra = 0,
-    noRice = false,
+    noSide = false,
     noStyle = false,
   } = pendingDish;
   let finalPrice = price;
@@ -701,27 +809,22 @@ customForm?.addEventListener('submit', (event) => {
       }
     }
   }
-  if (Array.isArray(fishOptions) && fishOptions.length > 0) {
-    const selectedFish = formData.get('custom-fish');
-    if (selectedFish) {
-      options.push(`Pescado: ${selectedFish}`);
+  if (Array.isArray(proteinOptions) && proteinOptions.length > 0) {
+    const selectedProtein = formData.get('custom-protein');
+    if (selectedProtein) {
+      options.push(`Relleno: ${selectedProtein}`);
     }
   }
-  let style = 'frito';
+  let style = 'jugosa';
   if (!pendingDish?.noStyle) {
-    style = formData.get('custom-style') || 'frito';
-    options.push(style === 'sudado' ? 'Preparación: Sudado' : 'Preparación: Frito');
+    style = formData.get('custom-style') || 'jugosa';
+    const styleLabel = style === 'bien' ? 'Bien cocida' : 'Jugosa';
+    options.push(`Punto: ${styleLabel}`);
   }
-  let rice = formData.get('custom-rice') || 'blanco';
-  if (!noRice) {
-    if (rice === 'coco') {
-      const riceLabel = cocoExtra > 0 ? `Arroz con coco (+ ${formatCurrency(cocoExtra)})` : 'Arroz con coco';
-      options.push(riceLabel);
-    } else {
-      options.push('Arroz blanco');
-    }
-  } else {
-    rice = 'blanco';
+  const side = formData.get('custom-side') || 'papas';
+  if (!noSide) {
+    const sideLabel = side === 'ensalada' ? 'Ensalada fresca' : 'Papas francesas';
+    options.push(`Acompañamiento: ${sideLabel}`);
   }
   if (customQuickGroup) {
     customQuickGroup.querySelectorAll('.quick-option').forEach((input) => {
@@ -732,21 +835,6 @@ customForm?.addEventListener('submit', (event) => {
         }
       }
     });
-  }
-  if (customCutGroup && !customCutGroup.classList.contains('is-hidden')) {
-    const cut = formData.get('custom-cut');
-    if (cut) {
-      const cutLabel = {
-        cabeza: 'Cabeza',
-        centro: 'Centro',
-        cola: 'Cola',
-      }[cut] || cut;
-      options.push(`Parte preferida: ${cutLabel}`);
-    }
-  }
-
-  if (!noRice && rice === 'coco' && cocoExtra > 0) {
-    finalPrice += cocoExtra;
   }
   addToCart(name, finalPrice, options.join(' • '));
   if (triggerButton) {
@@ -793,8 +881,33 @@ function closeInvoiceModal() {
   invoiceModal.setAttribute('aria-hidden', 'true');
 }
 
+function openCustomerModal() {
+  if (!customerModal || !customerForm) {
+    return;
+  }
+  customerForm.reset();
+  customerModal.classList.add('is-open');
+  customerModal.setAttribute('aria-hidden', 'false');
+}
+
+function closeCustomerModal() {
+  if (!customerModal) {
+    return;
+  }
+  customerModal.classList.remove('is-open');
+  customerModal.setAttribute('aria-hidden', 'true');
+}
+
 checkoutBtn.addEventListener('click', () => {
   if (cartMap.size === 0) {
+    return;
+  }
+  openInvoiceModal();
+});
+
+mobileCtaBtn?.addEventListener('click', () => {
+  if (cartMap.size === 0) {
+    showToast('Agrega productos antes de continuar.');
     return;
   }
   openInvoiceModal();
@@ -809,7 +922,36 @@ invoiceModal?.addEventListener('click', (event) => {
 });
 
 invoiceConfirmBtn?.addEventListener('click', () => {
-  const message = buildWhatsappMessage();
+  if (cartMap.size === 0) {
+    return;
+  }
+  closeInvoiceModal();
+  openCustomerModal();
+});
+
+customerCloseBtn?.addEventListener('click', closeCustomerModal);
+customerCancelBtn?.addEventListener('click', closeCustomerModal);
+
+customerModal?.addEventListener('click', (event) => {
+  if (event.target === customerModal) {
+    closeCustomerModal();
+  }
+});
+
+customerForm?.addEventListener('submit', (event) => {
+  event.preventDefault();
+  if (!customerForm) {
+    return;
+  }
+  const formData = new FormData(customerForm);
+  const name = formData.get('customer-name')?.toString().trim();
+  const phone = formData.get('customer-phone')?.toString().trim();
+  const address = formData.get('customer-address')?.toString().trim();
+  if (!name || !phone || !address) {
+    showToast('Completa todos los datos para continuar.');
+    return;
+  }
+  const message = buildWhatsappMessage({ name, phone, address });
   if (!message) {
     return;
   }
@@ -817,7 +959,7 @@ invoiceConfirmBtn?.addEventListener('click', () => {
   window.open(whatsappURL, '_blank');
   cartMap.clear();
   renderCart();
-  closeInvoiceModal();
+  closeCustomerModal();
 });
 
 loadMenu();
@@ -829,4 +971,26 @@ if (window.AOS) {
     easing: 'ease-out',
     once: true,
   });
+}
+
+if (typeof L !== 'undefined') {
+  const armeniaCoords = [4.5339, -75.6811];
+  const map = L.map('map', {
+    center: armeniaCoords,
+    zoom: 13,
+    zoomControl: false,
+  });
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
+  }).addTo(map);
+  L.control.zoom({ position: 'bottomright' }).addTo(map);
+  const markerIcon = L.divIcon({
+    className: '',
+    html: '<div class="map-marker" aria-hidden="true"></div>',
+    iconSize: [22, 22],
+    iconAnchor: [11, 11],
+  });
+  L.marker(armeniaCoords, { icon: markerIcon })
+    .addTo(map)
+    .bindPopup('Sabores y Velocidad');
 }
